@@ -22,6 +22,12 @@ trait OrderTrait
     private $payjp_token;
 
     /**
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $payjp_charge_id;
+
+    /**
      * @var PaymentStatus
      * @ORM\ManyToOne(targetEntity="Plugin\PayJP\Entity\PaymentStatus")
      * @ORM\JoinColumn(name="payjp_payment_status_id", referencedColumnName="id")
@@ -29,7 +35,7 @@ trait OrderTrait
     private $PayJpPaymentStatus;
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getPayjpToken(): ?string
     {
@@ -37,7 +43,7 @@ trait OrderTrait
     }
 
     /**
-     * @param string $payjp_token
+     * @param string|null $payjp_token
      * @return $this
      */
     public function setPayjpToken(?string $payjp_token): self
@@ -48,7 +54,26 @@ trait OrderTrait
     }
 
     /**
-     * @return PaymentStatus
+     * @return string|null
+     */
+    public function getPayjpChargeId(): ?string
+    {
+        return $this->payjp_charge_id;
+    }
+
+    /**
+     * @param string|null $payjp_charge_id
+     * @return $this
+     */
+    public function setPayjpChargeId(?string $payjp_charge_id): self
+    {
+        $this->payjp_charge_id = $payjp_charge_id;
+
+        return $this;
+    }
+
+    /**
+     * @return PaymentStatus|null
      */
     public function getPayJpPaymentStatus(): ?PaymentStatus
     {

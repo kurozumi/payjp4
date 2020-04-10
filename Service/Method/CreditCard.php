@@ -101,6 +101,9 @@ class CreditCard implements PaymentMethodInterface
             $PaymentStatus = $this->paymentStatusRepository->find(PaymentStatus::ACTUAL_SALES);
             $this->Order->setPayJpPaymentStatus($PaymentStatus);
 
+            // PAY.JPの課金IDを保存
+            $this->Order->setPayjpChargeId($charge['id']);
+
             // purchaseFlow::commitを呼び出し、購入処理をさせる
             $this->purchaseFlow->commit($this->Order, new PurchaseContext());
 
