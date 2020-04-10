@@ -119,7 +119,7 @@ class CreditCard implements PaymentMethodInterface
 
             $result = new PaymentResult();
             $result->setSuccess(false);
-            $result->setErrors([$charge['erroe']['message']]);
+            $result->setErrors([$charge['error']['message']]);
         }
 
         return $result;
