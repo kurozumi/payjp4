@@ -14,7 +14,6 @@ use Eccube\Service\Payment\PaymentResult;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Payjp\Charge;
-use Payjp\Customer;
 use Payjp\Payjp;
 use Plugin\PayJP\Entity\PaymentStatus;
 use Plugin\PayJP\Repository\PaymentStatusRepository;
@@ -94,7 +93,7 @@ class CreditCard implements PaymentMethodInterface
         ]);
 
         if (!isset($charge["error"])) {
-            // 受注ステータスを新規受付へ偏光
+            // 受注ステータスを新規受付へ変更
             $OrderStatus = $this->orderStatusRepository->find(OrderStatus::NEW);
             $this->Order->setOrderStatus($OrderStatus);
 
