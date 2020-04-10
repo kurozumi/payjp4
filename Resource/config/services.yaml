@@ -1,0 +1,6 @@
+parameters:
+  payjp_secret_key: sk_test_c7c3078e9f71ab0ce9d59371
+
+twig:
+  globals:
+    payjp_public_key: pk_test_b953b765fac7c8a80541e968
