@@ -12,6 +12,8 @@ EC-CUBE4でPay.JPでクレジットカード決済ができるプラグインの
 ## インストールと有効化
 
 ```
+bin/console eccube:composer:require payjp/payjp-php
+
 bin/console eccube:plugin:install --code PayJP
 bin/console eccube:plugin:enable --code PayJP
 ```
