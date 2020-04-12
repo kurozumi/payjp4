@@ -20,10 +20,13 @@ bin/console eccube:plugin:enable --code PayJP
 
 ## 秘密鍵と公開鍵を設定
 
-Pay.JPのアカウントを取得して秘密鍵と公開鍵を以下のファイルに設定してください。
+Pay.JPのアカウントを取得して秘密鍵と公開鍵を環境変数(.env)に設定してください。
 
 ```
-Plugin/PayJP/Resource/config/services.yaml
+## 公開キー
+PAYJP_PUBLIC_KEY=pk_test_b953b765fac7c8a80541e968
+## シークレットキー
+PAYJP_SECRET_KEY=sk_test_c7c3078e9f71ab0ce9d59371
 ```
 
 ## Shopping/index.twigにタグを追記
