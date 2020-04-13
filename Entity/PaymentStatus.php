@@ -11,7 +11,7 @@ use Eccube\Entity\Master\AbstractMasterEntity;
  * Class PaymentStatus
  * @package Plugin\PayJP\Entity
  *
- * @ORM\Table(name="plg_pay_jp_payment_status")
+ * @ORM\Table(name="plg_payjp_payment_status")
  * @ORM\Entity(repositoryClass="Plug\PayJP\Repository\PaymentStatusRepository")
  */
 class PaymentStatus extends AbstractMasterEntity

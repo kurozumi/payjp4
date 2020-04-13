@@ -16,9 +16,8 @@
                         data-partial="true"
                         data-token-name="{{ form.payjp_token.vars.full_name }}">
                 </script>
+                {{ form_errors(form.payjp_token) }}
             </div>
         </div>
     </div>
-{% else %}
-    {{ form_widget(form.payjp_token, {type: 'hidden'}) }}
 {% endif %}
