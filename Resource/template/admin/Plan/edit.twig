@@ -1,0 +1,109 @@
+{% extends '@admin/default_frame.twig' %}
+
+{% set menus = ['payjp', 'plan'] %}
+
+{% block title %}PAY.JP{% endblock %}
+{% block sub_title %}定期購入プラン作成{% endblock %}
+
+{% form_theme form '@admin/Form/bootstrap_4_horizontal_layout.html.twig' %}
+
+{% block stylesheet %}{% endblock stylesheet %}
+
+{% block javascript %}{% endblock javascript %}
+
+{% block main %}
+    <form role="form" method="post">
+
+        {{ form_widget(form._token) }}
+
+        <div class="c-contentsArea__cols">
+            <div class="c-contentsArea__primaryCol">
+                <div class="c-primaryCol">
+                    <div class="card rounded border-0 mb-4">
+                        <div class="card-header"><span>プラン作成</span></div>
+                        <div class="card-body">
+                            <table class="table table-borderless table-striped">
+                                <tbody>
+                                <tr>
+                                    <th>
+                                        <span>プラン名</span><span
+                                                class="badge badge-primary ml-1">必須</span>
+                                    </th>
+                                    <td>
+                                        {{ form_widget(form.name) }}
+                                        {{ form_errors(form.name) }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <span>金額</span>
+                                    </th>
+                                    <td>
+                                        {{ Plan.amount }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <span>課金間隔</span>
+                                    </th>
+                                    <td>
+                                        {{ Plan.charge_interval }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <span>課金日</span>
+                                    </th>
+                                    <td>
+                                        {{ Plan.billing_day }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <span>トライアル日数</span>
+                                    </th>
+                                    <td>
+                                        {{ Plan.trial_days }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <span>プランID</span>
+                                    </th>
+                                    <td>
+                                        {{ Plan.plan_id }}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="c-conversionArea">
+            <div class="c-conversionArea__container">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-6">
+                        <div class="c-conversionArea__leftBlockItem">
+                            <a class="c-baseLink"
+                               href="{{ url('admin_payjp_plan') }}">
+                                <i class="fa fa-backward" aria-hidden="true"></i>
+                                <span>プラン一覧</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row align-items-center justify-content-end">
+                            <div class="col-auto">
+                                <button class="btn btn-ec-conversion px-5"
+                                        type="submit">登録
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

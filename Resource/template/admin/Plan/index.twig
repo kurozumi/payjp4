@@ -1,0 +1,92 @@
+{% extends '@admin/default_frame.twig' %}
+
+{% set menus = ['payjp', 'plan'] %}
+
+{% block title %}PAY.JP{% endblock %}
+{% block sub_title %}定期購入プラン作成{% endblock %}
+
+{% block stylesheet %}
+    <style type="text/css">
+        li.list-group-item {
+            z-index: inherit !important;
+        }
+    </style>
+{% endblock %}
+
+{% block javascript %}{% endblock javascript %}
+
+{% block main %}
+    <div class="c-contentsArea__cols">
+        <div class="c-contentsArea__primaryCol">
+            <div class="c-primaryCol">
+                <div class="row justify-content-between mb-2">
+                    <div class="col">
+                        <a class="btn btn-ec-regular" href="{{ url('admin_payjp_plan_create') }}">
+                            {{ 'admin.common.create__new'|trans }}
+                        </a>
+                    </div>
+                </div>
+                <div class="card rounded border-0 mb-4">
+                    <div class="card-body p-0">
+                        <div class="card rounded border-0">
+                            <ul class="list-group list-group-flush">
+                                {% for Plan in Plans %}
+                                    <li id="ex-block-{{ Plan.id }}" class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-7 col-md-10 d-flex align-items-center">
+                                                <a href="{{ url('admin_payjp_plan_edit', {id: Plan.id}) }}">
+                                                    {{ Plan.name }}
+                                                </a>
+                                            </div>
+                                            <div class="col-5 col-md-2">
+                                                <div class="row">
+                                                    <div class="col-6 text-right">
+                                                        <a href="{{ url('admin_payjp_plan_edit', {id: Plan.id}) }}"
+                                                           class="btn btn-ec-actionIcon mr-3" data-tooltip="true"
+                                                           data-placement="top" title="{{ 'admin.common.edit'|trans }}">
+                                                            <i class="fa fa-pencil fa-lg text-secondary"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="d-inline-block mr-3" data-tooltip="true" data-placement="top" title="{{ 'admin.common.delete'|trans }}">
+                                                            <a href="#" data-toggle="modal" data-target="#confirmModal-{{ Plan.id }}" class="btn btn-ec-actionIcon">
+                                                                <i class="fa fa-close fa-lg text-secondary"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal fade" id="confirmModal-{{ Plan.id }}" tabindex="-1" role="dialog"
+                                                         aria-labelledby="confirmModal-{{ Plan.id }}" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title font-weight-bold">{{ 'admin.common.delete_modal__title'|trans }}</h5>
+                                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body text-left">
+                                                                    <p class="text-left">{{ 'admin.common.delete_modal__message'|trans({ '%name%' : Plan.name }) }}</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button class="btn btn-ec-sub" type="button" data-dismiss="modal">{{ 'admin.common.cancel'|trans }}</button>
+                                                                    <a href="{{ url('admin_payjp_plan_delete', {id: Plan.Id} ) }}"
+                                                                       class="btn btn-ec-delete" data-confirm="false" {{ csrf_token_for_anchor() }} data-method="delete">
+                                                                        {{ 'admin.common.delete'|trans }}
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
