@@ -25,6 +25,8 @@ class PlanController extends AbstractController
     )
     {
         $this->planRepository = $planRepository;
+
+        Payjp::setApiKey($this->eccubeConfig['payjp_secret_key']);
     }
 
     /**
@@ -90,7 +92,6 @@ class PlanController extends AbstractController
             $name = $form->get('name')->getData();
 
             try {
-                Payjp::setApiKey($this->eccubeConfig['payjp_secret_key']);
                 $p = \Payjp\Plan::retrieve($Plan->getPlanId());
                 $p->name = $name;
                 $p->save();
@@ -125,7 +126,6 @@ class PlanController extends AbstractController
         }
 
         try {
-            Payjp::setApiKey($this->eccubeConfig['payjp_secret_key']);
             $p = \Payjp\Plan::retrieve($Plan->getPlanId());
             $p->delete();
         }catch(\Exception $e) {

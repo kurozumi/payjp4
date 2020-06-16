@@ -12,7 +12,7 @@ use Eccube\Entity\Master\AbstractMasterEntity;
  * @package Plugin\PayJP\Entity
  *
  * @ORM\Table(name="plg_payjp_payment_status")
- * @ORM\Entity(repositoryClass="Plug\PayJP\Repository\PaymentStatusRepository")
+ * @ORM\Entity(repositoryClass="Plugin\PayJP\Repository\PaymentStatusRepository")
  */
 class PaymentStatus extends AbstractMasterEntity
 {

@@ -42,8 +42,8 @@ class PlanType extends AbstractType
             ->add('charge_interval', ChoiceType::class, [
                 'label' => '課金間隔',
                 'choices' => [
-                    '月次' => 'month',
-                    '年次' => 'year'
+                    '月次課金' => 'month',
+                    '年次課金' => 'year'
                 ],
                 'expanded' => false
             ])

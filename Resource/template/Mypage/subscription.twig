@@ -1,0 +1,54 @@
+{% extends 'default_frame.twig' %}
+
+{% set mypageno = 'subscription' %}
+
+{% set body_class = 'mypage' %}
+
+{% block main %}
+    <div class="ec-layoutRole__main">
+        <div class="ec-mypageRole">
+            <div class="ec-pageHeader">
+                <h1>{{ 'front.mypage.title'|trans }}/{{ 'front.mypage.nav__history'|trans }}</h1>
+            </div>
+            {% include 'Mypage/navi.twig' %}
+        </div>
+        <div class="ec-mypageRole">
+            {% if Plans %}
+
+                <div class="ec-historyRole">
+                    <div class="ec-historyRole__contents">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>プラン名</th>
+                                <th>金額</th>
+                                <th>課金間隔</th>
+                                <th>課金日</th>
+                                <th>トライアル日数</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for Plan in Plans %}
+                                <tr>
+                                    <td>{{ Plan.name }}</td>
+                                    <td>{{ Plan.amount }}</td>
+                                    <td>{{ Plan.charge_interval == "month" ? '月次課金' : '年次課金' }}</td>
+                                    <td>{{ Plan.billing_day }}日</td>
+                                    <td>{{ Plan.trial_days }}日</td>
+                                    <td>
+                                        <a class="ec-inlineBtn" href="{{ url('payjp_mypage_subscription_join', {'id': Plan.id}) }}">申し込み</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            {% else %}
+                <p class="ec-para-normal">{{ '定期購入プランはありません'|trans }}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
