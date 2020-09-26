@@ -26,6 +26,10 @@ class Nav implements EccubeNav
                 'name' => 'PAY.JP',
                 'icon' => 'fa-cube',
                 'children' => [
+                    'config' => [
+                        'name' => 'plguin.payjp.admin.config.sub_title',
+                        'url' => 'payjp_admin_config'
+                    ],
                     'plan' => [
                         'name' => '定期購入プラン',
                         'url' => 'admin_payjp_plan'

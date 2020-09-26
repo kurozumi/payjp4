@@ -5,7 +5,7 @@
   "type": "eccube-plugin",
   "require": {
     "ec-cube/plugin-installer": "~0.0.7",
-    "payjp/payjp-php": "~1.0"
+    "payjp/payjp-php": "*"
   },
   "extra": {
     "code": "payjp4"

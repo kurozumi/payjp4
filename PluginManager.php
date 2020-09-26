@@ -16,6 +16,7 @@ namespace Plugin\payjp4;
 use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\Payment;
 use Eccube\Plugin\AbstractPluginManager;
+use Plugin\payjp4\Entity\Config;
 use Plugin\payjp4\Entity\PaymentStatus;
 use Plugin\payjp4\Service\Method\CreditCard;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -24,6 +25,16 @@ class PluginManager extends AbstractPluginManager
 {
     public function enable(array $meta, ContainerInterface $container)
     {
+        /** @var EntityManagerInterface $entityManager */
+        $entityManager = $container->get('doctrine.orm.entity_manager');
+
+        $Config = $entityManager->getRepository(Config::class)->get();
+        if(!$Config) {
+            $Config = new Config();
+            $entityManager->persist($Config);
+            $entityManager->flush();
+        }
+
         $this->createTokenPayment($container);
         $this->createPaymentStatuses($container);
     }
