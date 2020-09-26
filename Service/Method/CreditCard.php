@@ -1,7 +1,16 @@
 <?php
+/**
+ * This file is part of payjp4
+ *
+ * Copyright(c) Akira Kurozumi <info@a-zumi.net>
+ *
+ *  https://a-zumi.net
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-
-namespace Plugin\PayJP\Service\Method;
+namespace Plugin\payjp4\Service\Method;
 
 
 use Eccube\Common\EccubeConfig;
@@ -15,8 +24,8 @@ use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Payjp\Charge;
 use Payjp\Payjp;
-use Plugin\PayJP\Entity\PaymentStatus;
-use Plugin\PayJP\Repository\PaymentStatusRepository;
+use Plugin\payjp4\Entity\PaymentStatus;
+use Plugin\payjp4\Repository\PaymentStatusRepository;
 use Symfony\Component\Form\FormInterface;
 
 class CreditCard implements PaymentMethodInterface

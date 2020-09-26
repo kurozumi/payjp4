@@ -1,14 +1,23 @@
 <?php
+/**
+ * This file is part of payjp4
+ *
+ * Copyright(c) Akira Kurozumi <info@a-zumi.net>
+ *
+ *  https://a-zumi.net
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Plugin\payjp4;
 
 
-namespace Plugin\PayJP;
-
-
+use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\Payment;
 use Eccube\Plugin\AbstractPluginManager;
-use Eccube\Repository\PaymentRepository;
-use Plugin\PayJP\Entity\PaymentStatus;
-use Plugin\PayJP\Service\Method\CreditCard;
+use Plugin\payjp4\Entity\PaymentStatus;
+use Plugin\payjp4\Service\Method\CreditCard;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PluginManager extends AbstractPluginManager
@@ -21,8 +30,9 @@ class PluginManager extends AbstractPluginManager
 
     private function createTokenPayment(ContainerInterface $container)
     {
+        /** @var EntityManagerInterface $entityManager */
         $entityManager = $container->get('doctrine.orm.entity_manager');
-        $paymentRepository = $container->get(PaymentRepository::class);
+        $paymentRepository = $entityManager->getRepository(Payment::class);
 
         $Payment = $paymentRepository->findOneBy([], ['sort_no' => 'DESC']);
         $sortNo = $Payment ? $Payment->getSortNo() + 1 : 1;
@@ -36,7 +46,7 @@ class PluginManager extends AbstractPluginManager
         $Payment->setCharge(0);
         $Payment->setSortNo($sortNo);
         $Payment->setVisible(true);
-        $Payment->setMethod("PayJP");
+        $Payment->setMethod("PayJp");
         $Payment->setMethodClass(CreditCard::class);
 
         $entityManager->persist($Payment);
@@ -45,11 +55,12 @@ class PluginManager extends AbstractPluginManager
 
     private function createMasterData(ContainerInterface $container, array $statuses, $class)
     {
+        /** @var EntityManagerInterface $entityManager */
         $entityManager = $container->get('doctrine.orm.entity_manager');
         $i = 0;
         foreach ($statuses as $id => $name) {
             $PaymentStatus = $entityManager->find($class, $id);
-            if(!$PaymentStatus) {
+            if (!$PaymentStatus) {
                 $PaymentStatus = new $class;
             }
             $PaymentStatus->setId($id);

@@ -1,7 +1,16 @@
 <?php
+/**
+ * This file is part of payjp4
+ *
+ * Copyright(c) Akira Kurozumi <info@a-zumi.net>
+ *
+ *  https://a-zumi.net
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-
-namespace Plugin\PayJP\Entity;
+namespace Plugin\payjp4\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,7 +18,7 @@ use Eccube\Annotation\EntityExtension;
 
 /**
  * Trait OrderTrait
- * @package Plugin\PayJP\Entity
+ * @package Plugin\payjp4\Entity
  *
  * @EntityExtension("Eccube\Entity\Order")
  */
@@ -29,7 +38,7 @@ trait OrderTrait
 
     /**
      * @var PaymentStatus
-     * @ORM\ManyToOne(targetEntity="Plugin\PayJP\Entity\PaymentStatus")
+     * @ORM\ManyToOne(targetEntity="Plugin\payjp4\Entity\PaymentStatus")
      * @ORM\JoinColumn(name="payjp_payment_status_id", referencedColumnName="id")
      */
     private $PayJpPaymentStatus;

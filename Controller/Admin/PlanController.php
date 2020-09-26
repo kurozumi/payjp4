@@ -1,12 +1,22 @@
 <?php
+/**
+ * This file is part of payjp4
+ *
+ * Copyright(c) Akira Kurozumi <info@a-zumi.net>
+ *
+ *  https://a-zumi.net
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-namespace Plugin\PayJP\Controller\Admin;
+namespace Plugin\payjp4\Controller\Admin;
 
 use Eccube\Controller\AbstractController;
-use Payjp\Payjp;
-use Plugin\PayJP\Entity\Plan;
-use Plugin\PayJP\Form\Type\PlanType;
-use Plugin\PayJP\Repository\PlanRepository;
+use Payjp\Payjp4;
+use Plugin\payjp4\Entity\Plan;
+use Plugin\payjp4\Form\Type\PlanType;
+use Plugin\payjp4\Repository\PlanRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +43,7 @@ class PlanController extends AbstractController
      * @param Request $request
      *
      * @Route("/%eccube_admin_route%/payjp/plan", name="admin_payjp_plan")
-     * @Template("@PayJP/admin/Plan/index.twig")
+     * @Template("@payjp4/admin/Plan/index.twig")
      */
     public function index(Request $request)
     {
@@ -46,7 +56,7 @@ class PlanController extends AbstractController
 
     /**
      * @Route("/%eccube_admin_route%/payjp/plan/create", name="admin_payjp_plan_create")
-     * @Template("@PayJP/admin/Plan/create.twig")
+     * @Template("@payjp4/admin/Plan/create.twig")
      */
     public function create(Request $request)
     {
@@ -71,7 +81,7 @@ class PlanController extends AbstractController
 
     /**
      * @Route("/%eccube_admin_route%/payjp/plan/{id}/edit", requirements={"id" = "\d+"}, name="admin_payjp_plan_edit")
-     * @Template("@PayJP/admin/Plan/edit.twig")
+     * @Template("@payjp4/admin/Plan/edit.twig")
      */
     public function edit(Request $request, Plan $Plan)
     {

@@ -1,6 +1,6 @@
 {#
     Mypage内に追記
-    {{ include('@PayJP/Mypage/subscription_button.twig', ignore_missing=true) }}
+    {{ include('@payjp4/Mypage/subscription_button.twig', ignore_missing=true) }}
 #}
 {% if is_granted('ROLE_USER') %}
     {{ dump(app.user.name01) }}

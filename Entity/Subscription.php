@@ -1,12 +1,22 @@
 <?php
+/**
+ * This file is part of payjp4
+ *
+ * Copyright(c) Akira Kurozumi <info@a-zumi.net>
+ *
+ *  https://a-zumi.net
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-namespace Plugin\PayJP\Entity;
+namespace Plugin\payjp4\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Eccube\Entity\Customer;
 
 /**
-* @ORM\Entity(repositoryClass="Plugin\PayJP\Repository\SubscriptionRepository")
+* @ORM\Entity(repositoryClass="Plugin\payjp4\Repository\SubscriptionRepository")
 */
 class Subscription extends \Eccube\Entity\AbstractEntity
 {
@@ -24,7 +34,7 @@ class Subscription extends \Eccube\Entity\AbstractEntity
     private $Customer;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Plugin\PayJP\Entity\Plan", inversedBy="subscriptions")
+     * @ORM\ManyToOne(targetEntity="Plugin\payjp4\Entity\Plan", inversedBy="subscriptions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $Plan;

@@ -1,16 +1,25 @@
 <?php
+/**
+ * This file is part of payjp4
+ *
+ * Copyright(c) Akira Kurozumi <info@a-zumi.net>
+ *
+ *  https://a-zumi.net
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-
-namespace Plugin\PayJP\Controller\Mypage;
+namespace Plugin\payjp4\Controller\Mypage;
 
 
 use Eccube\Controller\AbstractController;
 use Eccube\Entity\Customer;
 use Payjp\Payjp;
 use Payjp\Subscription;
-use Plugin\PayJP\Entity\Plan;
-use Plugin\PayJP\Entity\SubscriptionStatus;
-use Plugin\PayJP\Repository\PlanRepository;
+use Plugin\payjp4\Entity\Plan;
+use Plugin\payjp4\Entity\SubscriptionStatus;
+use Plugin\payjp4\Repository\PlanRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +42,7 @@ class SubscriptionController extends AbstractController
 
     /**
      * @Route("/mypage/subscription", name="payjp_mypage_subscription")
-     * @Template("@PayJP/Mypage/subscription.twig")
+     * @Template("@payjp4/Mypage/subscription.twig")
      */
     public function index()
     {
@@ -49,7 +58,7 @@ class SubscriptionController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
      * @Route("/mypage/subscription/{id}/join", name="payjp_mypage_subscription_join", methods={"GET|POST"})
-     * @Template("@PayJP/Mypage/subscription_join.twig")
+     * @Template("@payjp4/Mypage/subscription_join.twig")
      */
     public function join(Request $request, Plan $plan)
     {

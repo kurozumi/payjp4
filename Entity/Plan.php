@@ -1,6 +1,16 @@
 <?php
+/**
+ * This file is part of payjp4
+ *
+ * Copyright(c) Akira Kurozumi <info@a-zumi.net>
+ *
+ *  https://a-zumi.net
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-namespace Plugin\PayJP\Entity;
+namespace Plugin\payjp4\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -8,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="plg_payjp_plan")
- * @ORM\Entity(repositoryClass="Plugin\PayJP\Repository\PlanRepository")
+ * @ORM\Entity(repositoryClass="Plugin\payjp4\Repository\PlanRepository")
 */
 class Plan extends \Eccube\Entity\AbstractEntity
 {
@@ -70,7 +80,7 @@ class Plan extends \Eccube\Entity\AbstractEntity
     private $billing_day;
 
     /**
-     * @ORM\OneToMany(targetEntity="Plugin\PayJP\Entity\Subscription", mappedBy="Plan")
+     * @ORM\OneToMany(targetEntity="Plugin\payjp4\Entity\Subscription", mappedBy="Plan")
      */
     private $subscriptions;
 

@@ -1,4 +1,4 @@
-# PayJP for EC-CUBE4
+# PayJp for EC-CUBE4
 
 EC-CUBE4でPay.JPでクレジットカード決済ができるプラグインのサンプルです。  
 非公式プラグインですのでご利用は自己責任でお願い致します。  
@@ -14,8 +14,8 @@ EC-CUBE4でPay.JPでクレジットカード決済ができるプラグインの
 ```
 bin/console eccube:composer:require payjp/payjp-php
 
-bin/console eccube:plugin:install --code PayJP
-bin/console eccube:plugin:enable --code PayJP
+bin/console eccube:plugin:install --code payjp4
+bin/console eccube:plugin:enable --code payjp4
 ```
 
 ## 秘密鍵と公開鍵を設定
@@ -34,7 +34,7 @@ PAYJP_SECRET_KEY=sk_test_c7c3078e9f71ab0ce9d59371
 Shopping/index.twigに以下のタグを追記してください。
 
 ```
-{{ include('@PayJP/credit.twig', ignore_missing=true) }}
+{{ include('@payjp4/credit.twig', ignore_missing=true) }}
 ```
 
 以上で設定は終了です。

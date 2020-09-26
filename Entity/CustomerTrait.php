@@ -1,7 +1,16 @@
 <?php
+/**
+ * This file is part of payjp4
+ *
+ * Copyright(c) Akira Kurozumi <info@a-zumi.net>
+ *
+ *  https://a-zumi.net
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-
-namespace Plugin\PayJP\Entity;
+namespace Plugin\payjp4\Entity;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,7 +20,7 @@ use Eccube\Annotation\EntityExtension;
 
 /**
  * Trait CutomerTrait
- * @package Plugin\PayJP\Entity
+ * @package Plugin\payjp4\Entity
  *
  * @EntityExtension("Eccube\Entity\Customer")
  */
@@ -19,12 +28,12 @@ trait CustomerTrait
 {
 
     /**
-     * @ORM\OneToMany(targetEntity="Plugin\PayJP\Entity\Subscription", mappedBy="Customer")
+     * @ORM\OneToMany(targetEntity="Plugin\payjp4\Entity\Subscription", mappedBy="Customer")
      */
     private $payjpSubscriptions;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Plugin\PayJP\Entity\SubscriptionStatus", inversedBy="subscriptions")
+     * @ORM\ManyToOne(targetEntity="Plugin\payjp4\Entity\SubscriptionStatus", inversedBy="subscriptions")
      * @ORM\JoinColumn(nullable=true)
      */
     private $payjpSubscriptionStatus;

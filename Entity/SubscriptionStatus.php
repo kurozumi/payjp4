@@ -1,7 +1,16 @@
 <?php
+/**
+ * This file is part of payjp4
+ *
+ * Copyright(c) Akira Kurozumi <info@a-zumi.net>
+ *
+ *  https://a-zumi.net
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-
-namespace Plugin\PayJP\Entity;
+namespace Plugin\payjp4\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,10 +18,10 @@ use Eccube\Entity\Master\AbstractMasterEntity;
 
 /**
  * Class SubscriptionStatus
- * @package Plugin\PayJP\Entity
+ * @package Plugin\payjp4\Entity
  *
  * @ORM\Table(name="plg_payjp_subscription_status")
- * @ORM\Entity(repositoryClass="Plugin\PayJP\Repository\SubscriptionStatusRepository")
+ * @ORM\Entity(repositoryClass="Plugin\payjp4\Repository\SubscriptionStatusRepository")
  */
 class SubscriptionStatus extends AbstractMasterEntity
 {

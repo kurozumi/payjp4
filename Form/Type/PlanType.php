@@ -1,10 +1,20 @@
 <?php
+/**
+ * This file is part of payjp4
+ *
+ * Copyright(c) Akira Kurozumi <info@a-zumi.net>
+ *
+ *  https://a-zumi.net
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-namespace Plugin\PayJP\Form\Type;
+namespace Plugin\payjp4\Form\Type;
 
 use Eccube\Common\EccubeConfig;
 use Payjp\Payjp;
-use Plugin\PayJP\Entity\Plan;
+use Plugin\payjp4\Entity\Plan;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;

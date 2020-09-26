@@ -1,13 +1,13 @@
 {
-  "name": "ec-cube/PayJP",
+  "name": "ec-cube/payjp4",
   "version": "1.0.0",
-  "description": "PayJP",
+  "description": "payjp4",
   "type": "eccube-plugin",
   "require": {
     "ec-cube/plugin-installer": "~0.0.7",
     "payjp/payjp-php": "~1.0"
   },
   "extra": {
-    "code": "PayJP"
+    "code": "payjp4"
   }
 }
