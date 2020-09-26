@@ -1,7 +1,7 @@
 {
   "name": "ec-cube/payjp4",
   "version": "1.0.0",
-  "description": "payjp4",
+  "description": "PAY.JPプラグイン for EC-CUBE4",
   "type": "eccube-plugin",
   "require": {
     "ec-cube/plugin-installer": "~0.0.7",
