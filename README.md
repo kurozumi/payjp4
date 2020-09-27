@@ -1,15 +1,18 @@
-# PayJp for EC-CUBE4
+# PAY.JPプラグイン for EC-CUBE4
 
-EC-CUBE4でPay.JPでクレジットカード決済ができるプラグインのサンプルです。  
+EC-CUBE4で[PAY.JP](https://pay.jp/)でクレジットカード決済ができるプラグインのサンプルです。  
 非公式プラグインですのでご利用は自己責任でお願い致します。  
 
 サンプルプラグインは注文完了後、即売上確定になりますが、設定により仮売上にすることも可能です。  
-詳しくはPay.JPのAPIリファレンスを参照ください。
+詳しくはPAY.JPのAPIリファレンスを参照ください。
 
 [Charge (支払い)](https://pay.jp/docs/api/#charge-%E6%94%AF%E6%89%95%E3%81%84,)
 
+## PAY.JPとは？
 
-## インストールと有効化
+[PAY.JPとは？](https://pay.jp/)
+
+## プラグインのインストールと有効化
 
 ```
 bin/console eccube:composer:require payjp/payjp-php
