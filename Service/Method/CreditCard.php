@@ -63,13 +63,13 @@ class CreditCard implements PaymentMethodInterface
     public function __construct(
         OrderStatusRepository $orderStatusRepository,
         PaymentStatusRepository $paymentStatusRepository,
-        PurchaseFlow $purchaseFlow,
+        PurchaseFlow $shoppingPurchaseFlow,
         EccubeConfig $eccubeConfig
     )
     {
         $this->orderStatusRepository = $orderStatusRepository;
         $this->paymentStatusRepository = $paymentStatusRepository;
-        $this->purchaseFlow = $purchaseFlow;
+        $this->purchaseFlow = $shoppingPurchaseFlow;
         $this->eccubeConfig = $eccubeConfig;
     }
 
