@@ -72,6 +72,7 @@ class PayjpTokenValidatorTest extends EccubeTestCase
 
     public function testValidateNotPayjp()
     {
+        $this->Order->setPaymentMethod(null);
         $this->processor->execute($this->Order, new PurchaseContext());
         self::assertEquals(null, $this->Order->getPayJpPaymentStatus());
         self::assertEquals(null, $this->Order->getPayjpToken());
