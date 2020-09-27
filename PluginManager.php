@@ -16,6 +16,7 @@ namespace Plugin\payjp4;
 use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\Payment;
 use Eccube\Plugin\AbstractPluginManager;
+use Eccube\Util\StringUtil;
 use Plugin\payjp4\Entity\Config;
 use Plugin\payjp4\Entity\PaymentStatus;
 use Plugin\payjp4\Service\Method\CreditCard;
@@ -35,8 +36,21 @@ class PluginManager extends AbstractPluginManager
             $entityManager->flush();
         }
 
+        $this->addEnv($container);
         $this->createTokenPayment($container);
         $this->createPaymentStatuses($container);
+    }
+
+    private function addEnv(ContainerInterface $container)
+    {
+        $envFile = $container->getParameter('kernel.project_dir').'/.env';
+        $env = file_get_contents($envFile);
+        $env = StringUtil::replaceOrAddEnv($env, [
+            'PAYJP_PUBLIC_KEY' => '',
+            'PAYJP_SECRET_KEY' => ''
+        ]);
+        file_put_contents($envFile, $env);
+
     }
 
     private function createTokenPayment(ContainerInterface $container)
