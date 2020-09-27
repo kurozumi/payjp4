@@ -3,3 +3,6 @@ plguin.payjp.admin.config.sub_title: '設定'
 plguin.payjp.admin.setting.title: 'PAY.JP設定'
 plguin.payjp.admin.public_key.label: 'Public Key'
 plguin.payjp.admin.secret_key.label: 'Secret Key'
+
+plugin.payjp.front.payment.title: 'クレジットカード'
+plugin.payjp.front.payment.submit.name: 'トークンを作成する'

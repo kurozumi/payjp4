@@ -29,16 +29,6 @@ PAYJP_PUBLIC_KEY=pk_test_b953b765fac7c8a80541e968
 PAYJP_SECRET_KEY=sk_test_c7c3078e9f71ab0ce9d59371
 ```
 
-## Shopping/index.twigにタグを追記
+## 配送方法設定でPAY.JPを追加
 
-Shopping/index.twigに以下のタグを追記してください。
-
-```
-{{ include('@payjp4/credit.twig', ignore_missing=true) }}
-```
-
-以上で設定は終了です。
-お疲れさまでした。
-
-
-あとは配送方法設定で取り扱う支払い方法にPayJPを追加してあげてください。
+配送方法設定ページで取り扱う支払い方法にPayJPを追加してあげてください。

@@ -57,7 +57,7 @@ class PluginManager extends AbstractPluginManager
         $Payment->setCharge(0);
         $Payment->setSortNo($sortNo);
         $Payment->setVisible(true);
-        $Payment->setMethod("PayJp");
+        $Payment->setMethod("PAY.JP");
         $Payment->setMethodClass(CreditCard::class);
 
         $entityManager->persist($Payment);

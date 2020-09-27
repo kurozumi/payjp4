@@ -22,7 +22,6 @@ class TwigBlock implements EccubeTwigBlock
     public static function getTwigBlock()
     {
         return [
-            '@payjp4/Shopping/credit.twig',
             '@payjp4/Mypage/subscription_button.twig'
         ];
     }

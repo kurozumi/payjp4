@@ -79,6 +79,10 @@ class CreditCard implements PaymentMethodInterface
     public function verify()
     {
         // TODO: Implement verify() method.
+        // 決済ステータスを未決済へ変更
+        $PaymentStatus = $this->paymentStatusRepository->find(PaymentStatus::ENABLED);
+        $this->Order->setPayJpPaymentStatus($PaymentStatus);
+
         $result = new PaymentResult();
         $result->setSuccess(true);
 
@@ -118,7 +122,7 @@ class CreditCard implements PaymentMethodInterface
 
             $result = new PaymentResult();
             $result->setSuccess(true);
-        }else{
+        } else {
             // 受注ステータスを購入処理中へ変更
             $OrderStatus = $this->orderStatusRepository->find(OrderStatus::PROCESSING);
             $this->Order->setOrderStatus($OrderStatus);
