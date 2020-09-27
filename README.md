@@ -20,14 +20,9 @@ bin/console eccube:plugin:enable --code payjp4
 
 ## 秘密鍵と公開鍵を設定
 
-Pay.JPのアカウントを取得して秘密鍵と公開鍵を環境変数(.env)に設定してください。
+Pay.JPのアカウントを取得して秘密鍵と公開鍵を管理画面で設定してください。
 
-```
-## 公開キー
-PAYJP_PUBLIC_KEY=pk_test_b953b765fac7c8a80541e968
-## シークレットキー
-PAYJP_SECRET_KEY=sk_test_c7c3078e9f71ab0ce9d59371
-```
+![PAY.JP管理画面](https://github.com/kurozumi/payjp4/blob/images/payjp_config.png)
 
 ## 配送方法設定でPAY.JPを追加
 
