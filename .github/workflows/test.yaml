@@ -65,6 +65,7 @@ jobs:
         run: |
           cd ec-cube
           bin/console eccube:plugin:install --path=$HOME/${{ github.event.repository.name }}.tar.gz
+          bin/console cache:clear --no-warmup
           bin/console eccube:plugin:enable --code=${{ github.event.repository.name }}
         env:
           DATABASE_URL: mysql://root:root@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/eccube_db
@@ -162,6 +163,7 @@ jobs:
         run: |
           cd ec-cube
           bin/console eccube:plugin:install --path=$HOME/${{ github.event.repository.name }}.tar.gz
+          bin/console cache:clear --no-warmup
           bin/console eccube:plugin:enable --code=${{ github.event.repository.name }}
         env:
           DATABASE_URL: postgres://postgres:password@127.0.0.1:${{ job.services.postgres.ports['5432'] }}/eccube_db
