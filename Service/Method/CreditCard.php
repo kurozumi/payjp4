@@ -79,10 +79,6 @@ class CreditCard implements PaymentMethodInterface
     public function verify()
     {
         // TODO: Implement verify() method.
-        // 決済ステータスを未決済へ変更
-        $PaymentStatus = $this->paymentStatusRepository->find(PaymentStatus::ENABLED);
-        $this->Order->setPayJpPaymentStatus($PaymentStatus);
-
         $result = new PaymentResult();
         $result->setSuccess(true);
 
@@ -106,14 +102,6 @@ class CreditCard implements PaymentMethodInterface
         ]);
 
         if (!isset($charge["error"])) {
-            // 受注ステータスを新規受付へ変更
-            $OrderStatus = $this->orderStatusRepository->find(OrderStatus::NEW);
-            $this->Order->setOrderStatus($OrderStatus);
-
-            // 決済ステータスを実売上へ変更
-            $PaymentStatus = $this->paymentStatusRepository->find(PaymentStatus::ACTUAL_SALES);
-            $this->Order->setPayJpPaymentStatus($PaymentStatus);
-
             // PAY.JPの課金IDを保存
             $this->Order->setPayjpChargeId($charge['id']);
 
@@ -123,14 +111,6 @@ class CreditCard implements PaymentMethodInterface
             $result = new PaymentResult();
             $result->setSuccess(true);
         } else {
-            // 受注ステータスを購入処理中へ変更
-            $OrderStatus = $this->orderStatusRepository->find(OrderStatus::PROCESSING);
-            $this->Order->setOrderStatus($OrderStatus);
-
-            // 決済ステータスを未決済へ変更
-            $PaymentStatus = $this->paymentStatusRepository->find(PaymentStatus::OUTSTANDING);
-            $this->Order->setPayJpPaymentStatus($PaymentStatus);
-
             $this->purchaseFlow->rollback($this->Order, new PurchaseContext());
 
             $result = new PaymentResult();
@@ -147,14 +127,6 @@ class CreditCard implements PaymentMethodInterface
     public function apply()
     {
         // TODO: Implement apply() method.
-        // 受注ステーテスを決済処理中へ変更
-        $OrderStatus = $this->orderStatusRepository->find(OrderStatus::PENDING);
-        $this->Order->setOrderStatus($OrderStatus);
-
-        // 決済ステータスを未決済へ変更
-        $PaymentStatus = $this->paymentStatusRepository->find(PaymentStatus::OUTSTANDING);
-        $this->Order->setPayJpPaymentStatus($PaymentStatus);
-
         $this->purchaseFlow->prepare($this->Order, new PurchaseContext());
     }
 
