@@ -67,7 +67,7 @@ class OrderUpdateProcessorTest extends EccubeTestCase
 
     public function testPrepare()
     {
-        $this->Order->setPaymentMethod($this->Payment->getMethod());
+        $this->Order->setPayment($this->Payment);
         $this->processor->prepare($this->Order, new PurchaseContext());
         self::assertEquals(OrderStatus::PENDING, $this->Order->getOrderStatus()->getId());
         self::assertEquals(PaymentStatus::OUTSTANDING, $this->Order->getPayJpPaymentStatus()->getId());
@@ -75,7 +75,7 @@ class OrderUpdateProcessorTest extends EccubeTestCase
 
     public function testCommit()
     {
-        $this->Order->setPaymentMethod($this->Payment->getMethod());
+        $this->Order->setPayment($this->Payment);
         $this->processor->commit($this->Order, new PurchaseContext());
         self::assertEquals(OrderStatus::NEW, $this->Order->getOrderStatus()->getId());
         self::assertEquals(PaymentStatus::ACTUAL_SALES, $this->Order->getPayJpPaymentStatus()->getId());
@@ -83,7 +83,7 @@ class OrderUpdateProcessorTest extends EccubeTestCase
 
     public function testRollback()
     {
-        $this->Order->setPaymentMethod($this->Payment->getMethod());
+        $this->Order->setPayment($this->Payment);
         $this->processor->rollback($this->Order, new PurchaseContext());
         self::assertEquals(OrderStatus::PROCESSING, $this->Order->getOrderStatus()->getId());
         self::assertEquals(PaymentStatus::OUTSTANDING, $this->Order->getPayJpPaymentStatus()->getId());
