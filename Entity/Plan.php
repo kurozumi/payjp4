@@ -15,6 +15,7 @@ namespace Plugin\payjp4\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Eccube\Entity\Product;
 
 /**
  * @ORM\Table(name="plg_payjp_plan")
@@ -83,6 +84,11 @@ class Plan extends \Eccube\Entity\AbstractEntity
      * @ORM\OneToMany(targetEntity="Plugin\payjp4\Entity\Subscription", mappedBy="Plan")
      */
     private $subscriptions;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Eccube\Entity\Product", mappedBy="Plan", cascade={"persist","remove"})
+     */
+    private $products;
 
     public function __construct()
     {
@@ -239,6 +245,45 @@ class Plan extends \Eccube\Entity\AbstractEntity
             // set the owning side to null (unless already changed)
             if ($subscription->getPlan() === $this) {
                 $subscription->setPlan(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param Product $product
+     * @return $this
+     */
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setPayjpPlan($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Product $product
+     * @return $this
+     */
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+            // set the owning side to null (unless already changed)
+            if ($product->getPayjpPlan() === $this) {
+                $product->setPayjpPlan(null);
             }
         }
 

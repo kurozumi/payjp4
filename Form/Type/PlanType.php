@@ -107,7 +107,7 @@ class PlanType extends AbstractType
                         'trial_days' => $data->getTrialDays(),
                     ]);
 
-                    $data->setPlanId($plan["id"]);
+                    $data->setPlanId($plan->id);
                     $data->setCreated(strtotime("now"));
 
                 } catch (\Exception $e) {

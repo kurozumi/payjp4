@@ -1,10 +1,11 @@
 <?php
-/**
- * This file is part of payjp4
+
+/*
+ * This file is part of EC-CUBE
  *
- * Copyright(c) Akira Kurozumi <info@a-zumi.net>
+ * Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
  *
- *  https://a-zumi.net
+ * http://www.ec-cube.co.jp/
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -35,13 +36,9 @@ class PlanController extends AbstractController
     )
     {
         $this->planRepository = $planRepository;
-
-        Payjp::setApiKey($this->eccubeConfig['payjp_secret_key']);
     }
 
     /**
-     * @param Request $request
-     *
      * @Route("/%eccube_admin_route%/payjp/plan", name="admin_payjp_plan")
      * @Template("@payjp4/admin/Plan/index.twig")
      */
@@ -50,7 +47,7 @@ class PlanController extends AbstractController
         $Plans = $this->planRepository->findAll();
 
         return [
-            'Plans' => $Plans
+            'Plans' => $Plans,
         ];
     }
 
@@ -66,12 +63,14 @@ class PlanController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Plan $Plan */
             $Plan = $form->getData();
+
             $this->entityManager->persist($Plan);
             $this->entityManager->flush();
             $this->addSuccess('admin.common.save_complete', 'admin');
 
-            return $this->redirectToRoute('admin_payjp_plan_edit', ["id" => $Plan->getId()]);
+            return $this->redirectToRoute('admin_payjp_plan_edit', ['id' => $Plan->getId()]);
         }
 
         return [
@@ -92,7 +91,7 @@ class PlanController extends AbstractController
         $builder = $this->createFormBuilder();
         $builder->add('name', TextType::class, [
             'label' => 'プラン名',
-            'data' => $Plan->getName()
+            'data' => $Plan->getName(),
         ]);
 
         $form = $builder->getForm();
@@ -102,12 +101,14 @@ class PlanController extends AbstractController
             $name = $form->get('name')->getData();
 
             try {
+                Payjp::setApiKey($this->eccubeConfig['payjp_secret_key']);
                 $p = \Payjp\Plan::retrieve($Plan->getPlanId());
                 $p->name = $name;
                 $p->save();
             } catch (\Exception $e) {
                 $this->addError($e->getMessage(), 'admin');
-                return $this->redirectToRoute('admin_payjp_plan_edit', ["id" => $Plan->getId()]);
+
+                return $this->redirectToRoute('admin_payjp_plan_edit', ['id' => $Plan->getId()]);
             }
 
             $Plan->setName($name);
@@ -115,12 +116,12 @@ class PlanController extends AbstractController
             $this->entityManager->flush();
             $this->addSuccess('admin.common.save_complete', 'admin');
 
-            return $this->redirectToRoute('admin_payjp_plan_edit', ["id" => $Plan->getId()]);
+            return $this->redirectToRoute('admin_payjp_plan_edit', ['id' => $Plan->getId()]);
         }
 
         return [
             'form' => $form->createView(),
-            'Plan' => $Plan
+            'Plan' => $Plan,
         ];
     }
 
@@ -131,22 +132,25 @@ class PlanController extends AbstractController
     {
         $this->isTokenValid();
 
-        if(!$Plan) {
+        if (!$Plan) {
             throw new NotFoundHttpException();
         }
 
         try {
+            Payjp::setApiKey($this->eccubeConfig['payjp_secret_key']);
             $p = \Payjp\Plan::retrieve($Plan->getPlanId());
             $p->delete();
-        }catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->addError($e->getMessage(), 'admin');
-            return $this->redirectToRoute('admin_payjp_plan_edit', ["id" => $Plan->getId()]);
+
+            return $this->redirectToRoute('admin_payjp_plan_edit', ['id' => $Plan->getId()]);
         }
 
         $this->entityManager->remove($Plan);
         $this->entityManager->flush();
 
         $this->addSuccess('admin.common.delete_complete', 'admin');
+
         return $this->redirectToRoute('admin_payjp_plan');
     }
 }
