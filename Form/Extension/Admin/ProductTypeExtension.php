@@ -33,8 +33,6 @@ class ProductTypeExtension extends AbstractTypeExtension
                     'auto_render' => true
                 ]
             ]);
-
-
     }
 
     /**

@@ -17,9 +17,7 @@ use Eccube\Annotation\ShoppingFlow;
 use Eccube\Entity\ItemHolderInterface;
 use Eccube\Entity\Master\OrderStatus;
 use Eccube\Entity\Order;
-use Eccube\Entity\Payment;
 use Eccube\Repository\Master\OrderStatusRepository;
-use Eccube\Repository\PaymentRepository;
 use Eccube\Service\PurchaseFlow\Processor\AbstractPurchaseProcessor;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Plugin\payjp4\Entity\PaymentStatus;
@@ -44,22 +42,13 @@ class OrderUpdateProcessor extends AbstractPurchaseProcessor
      */
     private $paymentStatusRepository;
 
-    /**
-     * @var Payment
-     */
-    private $payment;
-
     public function __construct(
         OrderStatusRepository $orderStatusRepository,
-        PaymentStatusRepository $paymentStatusRepository,
-        PaymentRepository $paymentRepository
+        PaymentStatusRepository $paymentStatusRepository
     )
     {
         $this->orderStatusRepository = $orderStatusRepository;
         $this->paymentStatusRepository = $paymentStatusRepository;
-        $this->payment = $paymentRepository->findOneBy([
-            'method_class' => CreditCard::class
-        ]);
     }
 
     /**
@@ -74,7 +63,7 @@ class OrderUpdateProcessor extends AbstractPurchaseProcessor
             return;
         }
 
-        if($target->getPaymentMethod() === $this->payment->getMethod()) {
+        if ($target->getPayment()->getMethodClass() === CreditCard::class) {
             // 受注ステーテスを決済処理中へ変更
             $OrderStatus = $this->orderStatusRepository->find(OrderStatus::PENDING);
             $target->setOrderStatus($OrderStatus);
@@ -97,7 +86,7 @@ class OrderUpdateProcessor extends AbstractPurchaseProcessor
             return;
         }
 
-        if($target->getPaymentMethod() === $this->payment->getMethod()) {
+        if ($target->getPayment()->getMethodClass() === CreditCard::class) {
             // 受注ステータスを新規受付へ変更
             $OrderStatus = $this->orderStatusRepository->find(OrderStatus::NEW);
             $target->setOrderStatus($OrderStatus);
@@ -120,7 +109,7 @@ class OrderUpdateProcessor extends AbstractPurchaseProcessor
             return;
         }
 
-        if($itemHolder->getPaymentMethod() === $this->payment->getMethod()) {
+        if ($itemHolder->getPayment()->getMethodClass() === CreditCard::class) {
             // 受注ステータスを購入処理中へ変更
             $OrderStatus = $this->orderStatusRepository->find(OrderStatus::PROCESSING);
             $itemHolder->setOrderStatus($OrderStatus);
