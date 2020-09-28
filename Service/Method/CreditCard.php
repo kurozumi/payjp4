@@ -14,7 +14,6 @@ namespace Plugin\payjp4\Service\Method;
 
 
 use Eccube\Common\EccubeConfig;
-use Eccube\Entity\Master\OrderStatus;
 use Eccube\Entity\Order;
 use Eccube\Repository\Master\OrderStatusRepository;
 use Eccube\Service\Payment\PaymentMethod;
@@ -24,7 +23,6 @@ use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Payjp\Charge;
 use Payjp\Payjp;
-use Plugin\payjp4\Entity\PaymentStatus;
 use Plugin\payjp4\Repository\PaymentStatusRepository;
 use Symfony\Component\Form\FormInterface;
 

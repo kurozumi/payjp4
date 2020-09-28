@@ -7,16 +7,18 @@
     </script>
     <div class="ec-orderPayment" id="payjp">
         <div class="ec-rectHeading">
-            <h2>クレジットカード</h2>
+            <h2>{{ 'plugin.payjp.front.payment.title'|trans }}</h2>
             <div class="ec-input">
                 <script
                         type="text/javascript"
                         src="https://checkout.pay.jp/"
                         class="payjp-button"
                         data-key="{{ payjp_public_key }}"
-                        data-submit-text="トークンを作成する"
+                        data-submit-text="{{ 'plugin.payjp.front.payment.submit.name'|trans }}"
                         data-partial="true"
-                        data-token-name="{{ form.payjp_token.vars.full_name }}">
+                        data-token-name="{{ form.payjp_token.vars.full_name }}"
+                        data-previous-token="{{ Order.payjpToken }}"
+                >
                 </script>
                 {{ form_errors(form.payjp_token) }}
             </div>
