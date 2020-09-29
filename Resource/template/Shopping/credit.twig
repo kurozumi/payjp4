@@ -1,4 +1,9 @@
-{% if Order.Payment.getMethodClass == 'Plugin\\payjp4\\Service\\Method\\CreditCard' %}
+{%
+    if
+        Order.Payment.getMethodClass == 'Plugin\\payjp4\\Service\\Method\\CreditCard' or
+        Order.Payment.getMethodClass == 'Plugin\\payjp4\\Service\\Method\\Subscription'
+
+%}
     <script>
         $(function () {
             let paymentBox = $('.ec-orderPayment').first();

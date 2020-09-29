@@ -23,6 +23,7 @@ use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Plugin\payjp4\Entity\PaymentStatus;
 use Plugin\payjp4\Repository\PaymentStatusRepository;
 use Plugin\payjp4\Service\Method\CreditCard;
+use Plugin\payjp4\Service\Method\Subscription;
 
 /**
  * Class PayjpTokenValidator
@@ -37,20 +38,11 @@ class PayjpTokenValidator extends ItemHolderPostValidator
      */
     private $paymentStatusRepository;
 
-    /**
-     * @var Payment
-     */
-    private $payment;
-
     public function __construct(
-        PaymentStatusRepository $paymentStatusRepository,
-        PaymentRepository $paymentRepository
+        PaymentStatusRepository $paymentStatusRepository
     )
     {
         $this->paymentStatusRepository = $paymentStatusRepository;
-        $this->payment = $paymentRepository->findOneBy([
-            'method_class' => CreditCard::class
-        ]);
     }
 
     /**
@@ -63,7 +55,10 @@ class PayjpTokenValidator extends ItemHolderPostValidator
             return;
         }
 
-        if ($itemHolder->getPaymentMethod() === $this->payment->getMethod()) {
+        if (
+            $itemHolder->getPayment()->getMethodClass() === CreditCard::class ||
+            $itemHolder->getPayment()->getMethodClass() === Subscription::class
+        ) {
             $PaymentStatus = $this->paymentStatusRepository->find(PaymentStatus::ENABLED);
             $itemHolder->setPayJpPaymentStatus($PaymentStatus);
         } else {

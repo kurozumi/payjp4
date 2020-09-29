@@ -39,7 +39,7 @@
                                         <span>金額</span>
                                     </th>
                                     <td>
-                                        {{ Plan.amount }}
+                                        {{ Plan.amount }}円
                                     </td>
                                 </tr>
                                 <tr>
@@ -47,7 +47,7 @@
                                         <span>課金間隔</span>
                                     </th>
                                     <td>
-                                        {{ Plan.interval }}
+                                        {{ Plan.charge_interval == "month" ? '月次課金' : '年次課金' }}
                                     </td>
                                 </tr>
                                 <tr>

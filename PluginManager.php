@@ -21,6 +21,7 @@ use Eccube\Util\StringUtil;
 use Plugin\payjp4\Entity\Config;
 use Plugin\payjp4\Entity\PaymentStatus;
 use Plugin\payjp4\Service\Method\CreditCard;
+use Plugin\payjp4\Service\Method\Subscription;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PluginManager extends AbstractPluginManager
@@ -38,9 +39,18 @@ class PluginManager extends AbstractPluginManager
         }
 
         $this->addEnv($container);
-        $this->createPayment($container);
         $this->createSaleType($container);
         $this->createPaymentStatuses($container);
+
+        $Payment = new Payment();
+        $Payment->setMethod('クレジットカード');
+        $Payment->setMethodClass(CreditCard::class);
+        $this->createPayment($container, $Payment);
+
+        $Payment = new Payment();
+        $Payment->setMethod('定期購入');
+        $Payment->setMethodClass(Subscription::class);
+        $this->createPayment($container, $Payment);
     }
 
     public function disable(array $meta, ContainerInterface $container)
@@ -49,11 +59,15 @@ class PluginManager extends AbstractPluginManager
         $entityManager = $container->get('doctrine.orm.entity_manager');
         $paymentRepository = $entityManager->getRepository(Payment::class);
 
-        $Payment = $paymentRepository->findOneBy(['method_class' => CreditCard::class]);
-        if ($Payment) {
-            $entityManager->remove($Payment);
+        $Payments = $paymentRepository->findBy(['method_class' => [CreditCard::class, Subscription::class]]);
+        if ($Payments) {
+            foreach ($Payments as $Payment) {
+                $entityManager->remove($Payment);
+            }
             $entityManager->flush();
         }
+
+        // TODO APIでPAY.JPのプランをすべて削除
     }
 
     private function addEnv(ContainerInterface $container)
@@ -68,27 +82,22 @@ class PluginManager extends AbstractPluginManager
 
     }
 
-    private function createPayment(ContainerInterface $container)
+    private function createPayment(ContainerInterface $container, Payment $Payment)
     {
         /** @var EntityManagerInterface $entityManager */
         $entityManager = $container->get('doctrine.orm.entity_manager');
         $paymentRepository = $entityManager->getRepository(Payment::class);
 
-        $Payment = $paymentRepository->findOneBy([], ['sort_no' => 'DESC']);
-        $sortNo = $Payment ? $Payment->getSortNo() + 1 : 1;
+        $LastPayment = $paymentRepository->findOneBy([], ['sort_no' => 'DESC']);
+        $sortNo = $LastPayment ? $LastPayment->getSortNo() + 1 : 1;
 
-        $Payment = $paymentRepository->findOneBy(['method_class' => CreditCard::class]);
-        if ($Payment) {
+        if ($paymentRepository->findOneBy(['method_class' => $Payment->getMethodClass()])) {
             return;
         }
 
-        $Payment = new Payment();
         $Payment->setCharge(0);
         $Payment->setSortNo($sortNo);
         $Payment->setVisible(true);
-        $Payment->setMethod('クレジットカード');
-        $Payment->setMethodClass(CreditCard::class);
-
         $entityManager->persist($Payment);
         $entityManager->flush();
     }
