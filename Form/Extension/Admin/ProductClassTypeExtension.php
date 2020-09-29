@@ -104,8 +104,8 @@ class ProductClassTypeExtension extends AbstractTypeExtension
                             ->add('interval', TextType::class, [
                                 'data' =>
                                     $Plan->getChargeInterval() === 'month' ?
-                                        'plugin.payjp.admin.product_class_type.interval.choices.month' :
-                                        'plugin.payjp.admin.product_class_type.interval.choices.year',
+                                        trans('plugin.payjp.admin.product_class_type.interval.choices.month') :
+                                        trans('plugin.payjp.admin.product_class_type.interval.choices.year'),
                                 'mapped' => false,
                                 'attr' => [
                                     'readonly' => 'readonly'
@@ -115,7 +115,7 @@ class ProductClassTypeExtension extends AbstractTypeExtension
                                 ]
                             ])
                             ->add('billing_day', TextType::class, [
-                                'data' => sprintf("%s日", $Plan->getBillingDay()),
+                                'data' => $Plan->getBillingDay() ? sprintf("%s日", $Plan->getBillingDay()) : trans('common.select__unspecified'),
                                 'mapped' => false,
                                 'attr' => [
                                     'readonly' => 'readonly'
