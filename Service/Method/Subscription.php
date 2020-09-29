@@ -93,7 +93,7 @@ class Subscription implements PaymentMethodInterface
         // TODO: Implement checkout() method.
         $token = $this->Order->getPayjpToken();
 
-        if(!$token) {
+        if (!$token) {
             $this->purchaseFlow->rollback($this->Order, new PurchaseContext());
 
             $result = new PaymentResult();
@@ -102,33 +102,44 @@ class Subscription implements PaymentMethodInterface
 
         Payjp::setApiKey($this->eccubeConfig['payjp_secret_key']);
 
-        $customer = Customer::create([
-            'email' => $this->Order->getCustomer()->getEmail(),
-            'card' => $token
-        ]);
-
-        $orderItems = $this->Order->getProductOrderItems();
-
-        /** @var OrderItem $orderItem */
-        foreach ($orderItems as $orderItem) {
-            $subscription = \Payjp\Subscription::create([
-                'customer' => $customer->id,
-                'plan' => $orderItem->getProductClass()->getPayjpPlan()->getPlanId()
+        try {
+            $customer = Customer::create([
+                'email' => $this->Order->getCustomer()->getEmail(),
+                'card' => $token
             ]);
 
-            if (!isset($subscription['error'])) {
-                // purchaseFlow::commitを呼び出し、購入処理をさせる
-                $this->purchaseFlow->commit($this->Order, new PurchaseContext());
+            $orderItems = $this->Order->getOrderItems();
 
-                $result = new PaymentResult();
-                $result->setSuccess(true);
-            } else {
-                $this->purchaseFlow->rollback($this->Order, new PurchaseContext());
+            /** @var OrderItem $orderItem */
+            foreach ($orderItems as $orderItem) {
+                if ($orderItem->isProduct()) {
+                    $subscription = \Payjp\Subscription::create([
+                        'customer' => $customer->id,
+                        'plan' => $orderItem->getProductClass()->getPayjpPlan()->getPlanId()
+                    ]);
 
-                $result = new PaymentResult();
-                $result->setSuccess(false);
-                $result->setErrors([$subscription['error']['message']]);
+                    if (!isset($subscription['error'])) {
+                        // purchaseFlow::commitを呼び出し、購入処理をさせる
+                        $this->purchaseFlow->commit($this->Order, new PurchaseContext());
+
+                        $result = new PaymentResult();
+                        $result->setSuccess(true);
+                    } else {
+                        $this->purchaseFlow->rollback($this->Order, new PurchaseContext());
+
+                        $result = new PaymentResult();
+                        $result->setSuccess(false);
+                        $result->setErrors([$subscription['error']['message']]);
+                    }
+
+                    return $result;
+                }
             }
+        } catch (\Exception $e) {
+            $this->purchaseFlow->rollback($this->Order, new PurchaseContext());
+
+            $result = new PaymentResult();
+            $result->setSuccess(false);
 
             return $result;
         }
