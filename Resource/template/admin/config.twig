@@ -2,8 +2,8 @@
 
 {% set menus = ['payjp', 'config'] %}
 
-{% block title %}{{ 'plguin.payjp.admin.config.title'|trans }}{% endblock %}
-{% block sub_title %}{{ 'plguin.payjp.admin.config.sub_title'|trans }}{% endblock %}
+{% block title %}{{ 'plugin.payjp.admin.config.title'|trans }}{% endblock %}
+{% block sub_title %}{{ 'plugin.payjp.admin.config.sub_title'|trans }}{% endblock %}
 
 {% form_theme form '@admin/Form/bootstrap_4_horizontal_layout.html.twig' %}
 
@@ -20,10 +20,10 @@
             <div class="c-contentsArea__primaryCol">
                 <div class="c-primaryCol">
                     <div class="card rounded border-0 mb-4">
-                        <div class="card-header"><span>{{ 'plguin.payjp.admin.setting.title'|trans }}</span></div>
+                        <div class="card-header"><span>{{ 'plugin.payjp.admin.setting.title'|trans }}</span></div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-3"><span>{{ 'plguin.payjp.admin.public_key.label'|trans }}</span><span
+                                <div class="col-3"><span>{{ 'plugin.payjp.admin.public_key.label'|trans }}</span><span
                                         class="badge badge-primary ml-1">{{ 'admin.common.required'|trans }}</span></div>
                                 <div class="col mb-2">
                                     {{ form_widget(form.public_key) }}
@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-3"><span>{{ 'plguin.payjp.admin.secret_key.label'|trans }}</span><span
+                                <div class="col-3"><span>{{ 'plugin.payjp.admin.secret_key.label'|trans }}</span><span
                                         class="badge badge-primary ml-1">{{ 'admin.common.required'|trans }}</span></div>
                                 <div class="col mb-2">
                                     {{ form_widget(form.secret_key) }}

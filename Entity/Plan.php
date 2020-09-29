@@ -15,7 +15,7 @@ namespace Plugin\payjp4\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Eccube\Entity\Product;
+use Eccube\Entity\ProductClass;
 
 /**
  * @ORM\Table(name="plg_payjp_plan")
@@ -51,7 +51,7 @@ class Plan extends \Eccube\Entity\AbstractEntity
     private $livemode = false;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="datetimetz")
      */
     private $created;
 
@@ -86,9 +86,9 @@ class Plan extends \Eccube\Entity\AbstractEntity
     private $subscriptions;
 
     /**
-     * @ORM\OneToMany(targetEntity="Eccube\Entity\Product", mappedBy="Plan", cascade={"persist","remove"})
+     * @ORM\OneToOne(targetEntity="Eccube\Entity\ProductClass", mappedBy="PayjpPlan")
      */
-    private $products;
+    private $ProductClass;
 
     public function __construct()
     {
@@ -148,12 +148,12 @@ class Plan extends \Eccube\Entity\AbstractEntity
         return $this;
     }
 
-    public function getCreated(): ?int
+    public function getCreated(): ?\DateTime
     {
         return $this->created;
     }
 
-    public function setCreated(int $created): self
+    public function setCreated(\DateTime $created): self
     {
         $this->created = $created;
 
@@ -252,40 +252,20 @@ class Plan extends \Eccube\Entity\AbstractEntity
     }
 
     /**
-     * @return Collection|Product[]
+     * @return ProductClass|null
      */
-    public function getProducts(): Collection
+    public function getProductClass(): ?ProductClass
     {
-        return $this->products;
+        return $this->ProductClass;
     }
 
     /**
-     * @param Product $product
+     * @param ProductClass $productClass
      * @return $this
      */
-    public function addProduct(Product $product): self
+    public function setProductClass(ProductClass $productClass): self
     {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->setPayjpPlan($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Product $product
-     * @return $this
-     */
-    public function removeProduct(Product $product): self
-    {
-        if ($this->products->contains($product)) {
-            $this->products->removeElement($product);
-            // set the owning side to null (unless already changed)
-            if ($product->getPayjpPlan() === $this) {
-                $product->setPayjpPlan(null);
-            }
-        }
+        $this->ProductClass = $productClass;
 
         return $this;
     }

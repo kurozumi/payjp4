@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of payjp4
+ * This file is part of SocialLogin4
  *
  * Copyright(c) Akira Kurozumi <info@a-zumi.net>
  *
@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\payjp4\Form\Type;
+namespace Plugin\payjp4\Form\Type\Admin;
 
 use Eccube\Common\EccubeConfig;
 use Payjp\Payjp;
@@ -72,18 +72,6 @@ class PlanType extends AbstractType
             ]);
 
         $builder
-            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-                $form = $event->getForm();
-                $data = $event->getData();
-
-                if ($form->get('charge_interval')->getData() == 'month') {
-                    if (!$form->get('billing_day')->getData()) {
-                        $form->get('billing_day')->addError(new FormError('不正な課金日です。'));
-                    }
-                }
-            });
-
-        $builder
             ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
                 $data = $event->getData();
                 $form = $event->getForm();
@@ -102,13 +90,13 @@ class PlanType extends AbstractType
                         'amount' => $data->getAmount(),
                         'currency' => $data->getCurrency(),
                         'interval' => $data->getChargeInterval(),
-                        'plan_id' => $data->getPlanId(),
                         'name' => $data->getName(),
                         'trial_days' => $data->getTrialDays(),
+                        'billing_day' => $data->getBillingDay()
                     ]);
 
                     $data->setPlanId($plan->id);
-                    $data->setCreated(strtotime("now"));
+                    $data->setCreated(new \DateTime($plan->created));
 
                 } catch (\Exception $e) {
                     $form->get('amount')->addError(new FormError($e->getMessage()));

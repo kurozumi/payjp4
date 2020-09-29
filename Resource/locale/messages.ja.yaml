@@ -1,8 +1,18 @@
-plguin.payjp.admin.config.title: 'PAY.JP'
-plguin.payjp.admin.config.sub_title: '設定'
-plguin.payjp.admin.setting.title: 'PAY.JP設定'
-plguin.payjp.admin.public_key.label: '公開鍵'
-plguin.payjp.admin.secret_key.label: '秘密鍵'
+plugin.payjp.admin.config.title: 'PAY.JP'
+plugin.payjp.admin.config.sub_title: '設定'
+plugin.payjp.admin.setting.title: 'PAY.JP設定'
+plugin.payjp.admin.public_key.label: '公開鍵'
+plugin.payjp.admin.secret_key.label: '秘密鍵'
 
 plugin.payjp.front.payment.title: 'クレジットカード'
 plugin.payjp.front.payment.submit.name: 'トークンを作成する'
+
+
+plugin.payjp.admin.payment.name: 'クレジットカード'
+plugin.payjp.admin.sale_type.name: '定期購入'
+
+plugin.payjp.admin.product_class_type.interval.label: '課金周期'
+plugin.payjp.admin.product_class_type.billing_day.label: '課金日'
+
+plugin.payjp.admin.product_class_type.interval.choices.month: '月次課金'
+plugin.payjp.admin.product_class_type.interval.choices.year: '年次課金'

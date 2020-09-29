@@ -14,6 +14,7 @@ namespace Plugin\payjp4;
 
 
 use Doctrine\ORM\EntityManagerInterface;
+use Eccube\Entity\Master\SaleType;
 use Eccube\Entity\Payment;
 use Eccube\Plugin\AbstractPluginManager;
 use Eccube\Util\StringUtil;
@@ -30,20 +31,34 @@ class PluginManager extends AbstractPluginManager
         $entityManager = $container->get('doctrine.orm.entity_manager');
 
         $Config = $entityManager->getRepository(Config::class)->get();
-        if(!$Config) {
+        if (!$Config) {
             $Config = new Config();
             $entityManager->persist($Config);
             $entityManager->flush();
         }
 
         $this->addEnv($container);
-        $this->createTokenPayment($container);
+        $this->createPayment($container);
+        $this->createSaleType($container);
         $this->createPaymentStatuses($container);
+    }
+
+    public function disable(array $meta, ContainerInterface $container)
+    {
+        /** @var EntityManagerInterface $entityManager */
+        $entityManager = $container->get('doctrine.orm.entity_manager');
+        $paymentRepository = $entityManager->getRepository(Payment::class);
+
+        $Payment = $paymentRepository->findOneBy(['method_class' => CreditCard::class]);
+        if ($Payment) {
+            $entityManager->remove($Payment);
+            $entityManager->flush();
+        }
     }
 
     private function addEnv(ContainerInterface $container)
     {
-        $envFile = $container->getParameter('kernel.project_dir').'/.env';
+        $envFile = $container->getParameter('kernel.project_dir') . '/.env';
         $env = file_get_contents($envFile);
         $env = StringUtil::replaceOrAddEnv($env, [
             'PAYJP_PUBLIC_KEY' => '',
@@ -53,7 +68,7 @@ class PluginManager extends AbstractPluginManager
 
     }
 
-    private function createTokenPayment(ContainerInterface $container)
+    private function createPayment(ContainerInterface $container)
     {
         /** @var EntityManagerInterface $entityManager */
         $entityManager = $container->get('doctrine.orm.entity_manager');
@@ -71,10 +86,33 @@ class PluginManager extends AbstractPluginManager
         $Payment->setCharge(0);
         $Payment->setSortNo($sortNo);
         $Payment->setVisible(true);
-        $Payment->setMethod("クレジットカード");
+        $Payment->setMethod('クレジットカード');
         $Payment->setMethodClass(CreditCard::class);
 
         $entityManager->persist($Payment);
+        $entityManager->flush();
+    }
+
+    private function createSaleType(ContainerInterface $container)
+    {
+        /** @var EntityManagerInterface $entityManager */
+        $entityManager = $container->get('doctrine.orm.entity_manager');
+        $saleTypeRepository = $entityManager->getRepository(SaleType::class);
+
+        $SaleType = $saleTypeRepository->findOneBy([], ['sort_no' => 'DESC']);
+        $id = $SaleType ? $SaleType->getId() + 1 : 1;
+        $sortNo = $SaleType ? $SaleType->getSortNo() + 1 : 1;
+
+        $SaleType = $saleTypeRepository->findOneBy(['name' => '定期購入']);
+        if ($SaleType) {
+            return;
+        }
+
+        $SaleType = new SaleType();
+        $SaleType->setId($id);
+        $SaleType->setName('定期購入');
+        $SaleType->setSortNo($sortNo);
+        $entityManager->persist($SaleType);
         $entityManager->flush();
     }
 

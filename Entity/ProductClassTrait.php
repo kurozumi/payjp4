@@ -17,24 +17,25 @@ use Doctrine\ORM\Mapping as ORM;
 use Eccube\Annotation\EntityExtension;
 
 /**
- * Class ProductTrait
+ * Class ProductClassTrait
  * @package Plugin\payjp4\Entity
  *
- * @EntityExtension("Eccube\Entity\Product")
+ * @EntityExtension("Eccube\Entity\ProductClass")
  */
-trait ProductTrait
+trait ProductClassTrait
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Plugin\payjp4\Entity\Plan", inversedBy="products")
+     * @ORM\OneToOne(targetEntity="Plugin\payjp4\Entity\Plan", inversedBy="ProductClass")
+     * @ORM\JoinColumn(name="payjp_plan_id", referencedColumnName="id")
      */
-    private $payjp_plan;
+    private $PayjpPlan;
 
     /**
      * @return Plan|null
      */
     public function getPayjpPlan(): ?Plan
     {
-        return $this->payjp_plan;
+        return $this->PayjpPlan;
     }
 
     /**
@@ -43,7 +44,7 @@ trait ProductTrait
      */
     public function setPayjpPlan(?Plan $plan): self
     {
-        $this->payjp_plan = $plan;
+        $this->PayjpPlan = $plan;
 
         return $this;
     }

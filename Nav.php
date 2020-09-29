@@ -27,7 +27,7 @@ class Nav implements EccubeNav
                 'icon' => 'fa-cube',
                 'children' => [
                     'config' => [
-                        'name' => 'plguin.payjp.admin.config.sub_title',
+                        'name' => 'plugin.payjp.admin.config.sub_title',
                         'url' => 'payjp_admin_config'
                     ],
                     'plan' => [

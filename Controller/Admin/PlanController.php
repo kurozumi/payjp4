@@ -16,7 +16,7 @@ namespace Plugin\payjp4\Controller\Admin;
 use Eccube\Controller\AbstractController;
 use Payjp\Payjp;
 use Plugin\payjp4\Entity\Plan;
-use Plugin\payjp4\Form\Type\PlanType;
+use Plugin\payjp4\Form\Type\Admin\PlanType;
 use Plugin\payjp4\Repository\PlanRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
