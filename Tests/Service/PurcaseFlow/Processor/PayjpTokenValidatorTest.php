@@ -79,14 +79,6 @@ class PayjpTokenValidatorTest extends EccubeTestCase
         self::assertEquals(PaymentStatus::ENABLED, $this->Order->getPayJpPaymentStatus()->getId());
     }
 
-    public function testValidate_NotCreditCard()
-    {
-        $this->Order->setPayment(null);
-        $this->processor->execute($this->Order, new PurchaseContext());
-        self::assertEquals(null, $this->Order->getPayJpPaymentStatus());
-        self::assertEquals(null, $this->Order->getPayjpToken());
-    }
-
     public function testValidate_Subscription()
     {
         $this->Order->setPayment($this->Subscription);
@@ -94,9 +86,11 @@ class PayjpTokenValidatorTest extends EccubeTestCase
         self::assertEquals(PaymentStatus::ENABLED, $this->Order->getPayJpPaymentStatus()->getId());
     }
 
-    public function testValidate_NotSubscription()
+    public function testValidate_Not_CreditCard_or_Subscription()
     {
-        $this->Order->setPayment(null);
+        $Payment = new Payment();
+        $Payment->setMethodClass("test");
+        $this->Order->setPayment($Payment);
         $this->processor->execute($this->Order, new PurchaseContext());
         self::assertEquals(null, $this->Order->getPayJpPaymentStatus());
         self::assertEquals(null, $this->Order->getPayjpToken());
