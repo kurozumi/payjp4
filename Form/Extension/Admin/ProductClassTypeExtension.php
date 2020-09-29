@@ -150,6 +150,11 @@ class ProductClassTypeExtension extends AbstractTypeExtension
                     return;
                 }
 
+                if(!$form->get('interval')->getData()) {
+                    $form->get('interval')->addError(new FormError(trans('plugin.payjp.admin.interval.error')));
+                    return;
+                }
+
                 try {
                     if ($data->getPayjpPlan()) {
                         $p = Plan::retrieve($data->getPayjpPlan()->getPlanId());
