@@ -19,6 +19,7 @@ use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Tests\EccubeTestCase;
 use Plugin\payjp4\Entity\PaymentStatus;
 use Plugin\payjp4\Service\Method\CreditCard;
+use Plugin\payjp4\Service\Method\Subscription;
 use Plugin\payjp4\Service\PurchaseFlow\Processor\PayjpTokenValidator;
 
 class PayjpTokenValidatorTest extends EccubeTestCase
@@ -36,7 +37,12 @@ class PayjpTokenValidatorTest extends EccubeTestCase
     /**
      * @var Payment
      */
-    protected $Payment;
+    protected $CreditCard;
+
+    /**
+     * @var Payment
+     */
+    protected $Subscription;
 
     public function setUp()
     {
@@ -48,8 +54,11 @@ class PayjpTokenValidatorTest extends EccubeTestCase
         );
 
         $this->Order = $this->createOrder($this->createCustomer());
-        $this->Payment = $this->entityManager->getRepository(Payment::class)->findOneBy([
+        $this->CreditCard = $this->entityManager->getRepository(Payment::class)->findOneBy([
             'method_class' => CreditCard::class
+        ]);
+        $this->Subscription = $this->entityManager->getRepository(Payment::class)->findOneBy([
+            'method_class' => Subscription::class
         ]);
     }
 
@@ -63,16 +72,31 @@ class PayjpTokenValidatorTest extends EccubeTestCase
         self::assertInstanceOf(PayjpTokenValidator::class, $this->processor);
     }
 
-    public function testValidate()
+    public function testValidate_CreditCard()
     {
-        $this->Order->setPaymentMethod($this->Payment->getMethod());
+        $this->Order->setPayment($this->CreditCard);
         $this->processor->execute($this->Order, new PurchaseContext());
         self::assertEquals(PaymentStatus::ENABLED, $this->Order->getPayJpPaymentStatus()->getId());
     }
 
-    public function testValidateNotPayjp()
+    public function testValidateNotPayjp_CreditCard()
     {
-        $this->Order->setPaymentMethod(null);
+        $this->Order->setPayment($this->CreditCard);
+        $this->processor->execute($this->Order, new PurchaseContext());
+        self::assertEquals(null, $this->Order->getPayJpPaymentStatus());
+        self::assertEquals(null, $this->Order->getPayjpToken());
+    }
+
+    public function testValidate_Subscription()
+    {
+        $this->Order->setPayment($this->Subscription);
+        $this->processor->execute($this->Order, new PurchaseContext());
+        self::assertEquals(PaymentStatus::ENABLED, $this->Order->getPayJpPaymentStatus()->getId());
+    }
+
+    public function testValidateNotPayjp_Subscription()
+    {
+        $this->Order->setPayment($this->CreditCaSubscriptionrd);
         $this->processor->execute($this->Order, new PurchaseContext());
         self::assertEquals(null, $this->Order->getPayJpPaymentStatus());
         self::assertEquals(null, $this->Order->getPayjpToken());
