@@ -26,7 +26,8 @@ class ConfigTypeTest extends AbstractTypeTestCase
 
     protected $formData = [
         'public_key' => 'dummy',
-        'secret_key' => 'dummy'
+        'secret_key' => 'dummy',
+        'webhook_token' => 'dummy'
     ];
 
     public function setUp()

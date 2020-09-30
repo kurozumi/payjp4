@@ -41,6 +41,7 @@ class ConfigControllerTest extends AbstractAdminWebTestCase
             'config' => [
                 'public_key' => 'dummy',
                 'secret_key' => 'dummy',
+                'webhook_token' => 'dummy'
                 Constant::TOKEN_NAME => 'dummy'
             ]
         ]);
