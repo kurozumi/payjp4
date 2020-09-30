@@ -28,23 +28,23 @@ trait ProductClassTrait
      * @ORM\OneToOne(targetEntity="Plugin\payjp4\Entity\Plan", inversedBy="ProductClass")
      * @ORM\JoinColumn(name="payjp_plan_id", referencedColumnName="id")
      */
-    private $PayjpPlan;
+    private $Plan;
 
     /**
      * @return Plan|null
      */
-    public function getPayjpPlan(): ?Plan
+    public function getPlan(): ?Plan
     {
-        return $this->PayjpPlan;
+        return $this->Plan;
     }
 
     /**
      * @param Plan|null $plan
      * @return $this
      */
-    public function setPayjpPlan(?Plan $plan): self
+    public function setPlan(?Plan $plan): self
     {
-        $this->PayjpPlan = $plan;
+        $this->Plan = $plan;
 
         return $this;
     }

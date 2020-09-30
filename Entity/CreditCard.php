@@ -12,18 +12,17 @@
 
 namespace Plugin\payjp4\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use Eccube\Entity\Customer;
 
 /**
- * Class PayjpCustomer
+ * Class CreditCard
  * @package Plugin\payjp4\Entity
  *
  * @ORM\Table(name="plg_payjp_customer")
- * @ORM\Entity(repositoryClass="Plugin\payjp4\Repository\PayjpCustomerRepository")
+ * @ORM\Entity(repositoryClass="Plugin\payjp4\Repository\CreditCardRepository")
  */
-class PayjpCustomer
+class CreditCard
 {
     /**
      * @var int
@@ -39,12 +38,12 @@ class PayjpCustomer
      *
      * @ORM\Column(type="string", length=255)
      */
-    private $payjp_customer_id;
+    private $payjp_id;
 
     /**
      * @var
      *
-     * @ORM\ManyToOne(targetEntity="Eccube\Entity\Customer", inversedBy="payjpCustomers")
+     * @ORM\ManyToOne(targetEntity="Eccube\Entity\Customer", inversedBy="CreditCards")
      * @ORM\JoinColumn(nullable=false)
      */
     private $Customer;
@@ -60,14 +59,14 @@ class PayjpCustomer
     /**
      * @return string
      */
-    public function getPayjpCustomerId(): string
+    public function getPayjpId(): string
     {
-        return $this->payjp_customer_id;
+        return $this->payjp_id;
     }
 
-    public function setPayjpCustomerId(string $payjp_customer_id): self
+    public function setPayjpId(string $payjp_id): self
     {
-        $this->payjp_customer_id = $payjp_customer_id;
+        $this->payjp_id = $payjp_id;
 
         return $this;
     }

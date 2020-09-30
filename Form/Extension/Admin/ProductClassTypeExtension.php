@@ -94,7 +94,7 @@ class ProductClassTypeExtension extends AbstractTypeExtension
                         return;
                     }
 
-                    if ($Plan = $data->getPayjpPlan()) {
+                    if ($Plan = $data->getPlan()) {
                         $form
                             ->add('price02', PriceType::class, [
                                 'attr' => [
@@ -141,8 +141,8 @@ class ProductClassTypeExtension extends AbstractTypeExtension
                 Payjp::setApiKey($this->eccubeConfig['payjp_secret_key']);
 
                 if ($data->getSaleType()->getName() !== trans('plugin.payjp.admin.sale_type.name')) {
-                    if ($Plan = $data->getPayjpPlan()) {
-                        $data->setPayjpPlan(null);
+                    if ($Plan = $data->getPlan()) {
+                        $data->setPlan(null);
                         $this->entityManager->remove($Plan);
 
                         Plan::retrieve($Plan->getPlanId())->delete();
@@ -156,8 +156,8 @@ class ProductClassTypeExtension extends AbstractTypeExtension
                 }
 
                 try {
-                    if ($data->getPayjpPlan()) {
-                        $p = Plan::retrieve($data->getPayjpPlan()->getPlanId());
+                    if ($data->getPlan()) {
+                        $p = Plan::retrieve($data->getPlan()->getPlanId());
                         $p->name = $data->formattedProductName();
                         $p->save();
                     } else {
@@ -182,11 +182,11 @@ class ProductClassTypeExtension extends AbstractTypeExtension
                         $this->entityManager->persist($Plan);
                         $this->entityManager->flush();
 
-                        $data->setPayjpPlan($Plan);
+                        $data->setPlan($Plan);
                     }
                 } catch (\Exception $e) {
                     // 新規作成時にエラーが発生したらPAY.JPのプラン削除
-                    if (!$data->getPayjpPlan() && isset($p)) {
+                    if (!$data->getPlan() && isset($p)) {
                         Plan::retrieve($p->id)->delete();
                     }
 

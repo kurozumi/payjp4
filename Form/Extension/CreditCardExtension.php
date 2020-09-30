@@ -16,6 +16,7 @@ namespace Plugin\payjp4\Form\Extension;
 use Eccube\Entity\Order;
 use Eccube\Form\Type\Shopping\OrderType;
 use Plugin\payjp4\Service\Method\CreditCard;
+use Plugin\payjp4\Service\Method\Subscription;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -50,7 +51,10 @@ class CreditCardExtension extends AbstractTypeExtension
                     return;
                 }
 
-                if ($data->getPayment()->getMethodClass() === CreditCard::class) {
+                if (
+                    $data->getPayment()->getMethodClass() === CreditCard::class ||
+                    $data->getPayment()->getMethodClass() === Subscription::class
+                ) {
                     if(!$form->get('payjp_token')->getData()) {
                         $form->get('payjp_token')->addError(new FormError("クレジットカード情報を入力してください"));
                     }

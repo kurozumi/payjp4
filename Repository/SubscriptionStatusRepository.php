@@ -12,13 +12,20 @@
 
 namespace Plugin\payjp4\Repository;
 
-
 use Eccube\Repository\AbstractRepository;
 use Plugin\payjp4\Entity\SubscriptionStatus;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
+/**
+ * Class SubscriptionStatusRepository
+ * @package Plugin\payjp4\Repository
+ */
 class SubscriptionStatusRepository extends AbstractRepository
 {
+    /**
+     * SubscriptionStatusRepository constructor.
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, SubscriptionStatus::class);

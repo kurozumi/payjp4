@@ -23,6 +23,7 @@ use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Plugin\payjp4\Entity\PaymentStatus;
 use Plugin\payjp4\Repository\PaymentStatusRepository;
 use Plugin\payjp4\Service\Method\CreditCard;
+use Plugin\payjp4\Service\Method\Subscription;
 
 /**
  * Class OrderUpdateProcessor
@@ -64,13 +65,18 @@ class OrderUpdateProcessor extends AbstractPurchaseProcessor
         }
 
         if ($target->getPayment()->getMethodClass() === CreditCard::class) {
-            // 受注ステーテスを決済処理中へ変更
-            $OrderStatus = $this->orderStatusRepository->find(OrderStatus::PENDING);
-            $target->setOrderStatus($OrderStatus);
-
             // 決済ステータスを未決済へ変更
             $PaymentStatus = $this->paymentStatusRepository->find(PaymentStatus::OUTSTANDING);
             $target->setPayJpPaymentStatus($PaymentStatus);
+        }
+
+        if (
+            $target->getPayment()->getMethodClass() === CreditCard::class ||
+            $target->getPayment()->getMethodClass() === Subscription::class
+        ) {
+            // 受注ステーテスを決済処理中へ変更
+            $OrderStatus = $this->orderStatusRepository->find(OrderStatus::PENDING);
+            $target->setOrderStatus($OrderStatus);
         }
     }
 
@@ -87,10 +93,6 @@ class OrderUpdateProcessor extends AbstractPurchaseProcessor
         }
 
         if ($target->getPayment()->getMethodClass() === CreditCard::class) {
-            // 受注ステータスを新規受付へ変更
-            $OrderStatus = $this->orderStatusRepository->find(OrderStatus::NEW);
-            $target->setOrderStatus($OrderStatus);
-
             // 決済ステータスを実売上へ変更
             $PaymentStatus = $this->paymentStatusRepository->find(PaymentStatus::ACTUAL_SALES);
             $target->setPayJpPaymentStatus($PaymentStatus);
@@ -110,13 +112,18 @@ class OrderUpdateProcessor extends AbstractPurchaseProcessor
         }
 
         if ($itemHolder->getPayment()->getMethodClass() === CreditCard::class) {
-            // 受注ステータスを購入処理中へ変更
-            $OrderStatus = $this->orderStatusRepository->find(OrderStatus::PROCESSING);
-            $itemHolder->setOrderStatus($OrderStatus);
-
             // 決済ステータスを未決済へ変更
             $PaymentStatus = $this->paymentStatusRepository->find(PaymentStatus::OUTSTANDING);
             $itemHolder->setPayJpPaymentStatus($PaymentStatus);
+        }
+
+        if (
+            $itemHolder->getPayment()->getMethodClass() === CreditCard::class ||
+            $itemHolder->getPayment()->getMethodClass() === Subscription::class
+        ) {
+            // 受注ステータスを購入処理中へ変更
+            $OrderStatus = $this->orderStatusRepository->find(OrderStatus::PROCESSING);
+            $itemHolder->setOrderStatus($OrderStatus);
         }
     }
 }

@@ -28,47 +28,60 @@ use Eccube\Entity\Customer;
 trait CustomerTrait
 {
     /**
-     * @ORM\OneToMany(targetEntity="Plugin\payjp4\Entity\PayjpCustomer", mappedBy="Customer")
+     * @ORM\OneToMany(targetEntity="Plugin\payjp4\Entity\CreditCard", mappedBy="Customer", cascade={"persist","remove"})
      */
-    private $payjpCustomers;
+    private $CreditCards;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Plugin\payjp4\Entity\Subscription", mappedBy="Customer")
+     */
+    private $Subscriptions;
 
     /**
      * @return Collection|Subscription[]
      */
-    public function getPayjpCustomers(): Collection
+    public function getCreditCards(): Collection
     {
-        if (null == $this->payjpCustomers) {
-            $this->payjpCustomers = new ArrayCollection();
+        if (null == $this->CreditCards) {
+            $this->CreditCards = new ArrayCollection();
         }
 
-        return $this->payjpCustomers;
+        return $this->CreditCards;
     }
 
-    public function addPayjpCustomer(PayjpCustomer $payjpCustomer): self
+    /**
+     * @param CreditCard $creditCard
+     * @return $this
+     */
+    public function addCreditCard(CreditCard $creditCard): self
     {
-        if (null == $this->payjpCustomers) {
-            $this->payjpCustomers = new ArrayCollection();
+        if (null == $this->CreditCards) {
+            $this->CreditCards = new ArrayCollection();
         }
 
-        if (!$this->payjpCustomers->contains($payjpCustomer)) {
-            $this->payjpCustomers[] = $payjpCustomer;
-            $payjpCustomer->setCustomer($this);
+        if (!$this->CreditCards->contains($creditCard)) {
+            $this->CreditCards[] = $creditCard;
+            $creditCard->setCustomer($this);
         }
 
         return $this;
     }
 
-    public function removePayjpCustomer(PayjpCustomer $payjpCustomer): self
+    /**
+     * @param CreditCard $creditCard
+     * @return $this
+     */
+    public function removeCreditCard(CreditCard $creditCard): self
     {
-        if (null == $this->payjpCustomers) {
-            $this->payjpCustomers = new ArrayCollection();
+        if (null == $this->CreditCards) {
+            $this->CreditCards = new ArrayCollection();
         }
 
-        if ($this->payjpCustomers->contains($payjpCustomer)) {
-            $this->payjpCustomers->removeElement($payjpCustomer);
+        if ($this->CreditCards->contains($creditCard)) {
+            $this->CreditCards->removeElement($creditCard);
             // set the owning side to null (unless already changed)
-            if ($payjpCustomer->getCustomer() === $this) {
-                $payjpCustomer->setCustomer(null);
+            if ($creditCard->getCustomer() === $this) {
+                $creditCard->setCustomer(null);
             }
         }
 

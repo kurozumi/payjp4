@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of SocialLogin4
+ * This file is part of payjp4
  *
  * Copyright(c) Akira Kurozumi <info@a-zumi.net>
  *

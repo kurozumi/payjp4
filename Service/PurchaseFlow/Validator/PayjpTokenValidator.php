@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\payjp4\Service\PurchaseFlow\Processor;
+namespace Plugin\payjp4\Service\PurchaseFlow\Validator;
 
 
 use Eccube\Annotation\ShoppingFlow;

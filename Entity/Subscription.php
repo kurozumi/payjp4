@@ -14,56 +14,100 @@ namespace Plugin\payjp4\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Eccube\Entity\Customer;
+use Eccube\Entity\OrderItem;
 
 /**
-* @ORM\Entity(repositoryClass="Plugin\payjp4\Repository\SubscriptionRepository")
-*/
+ * Class Subscription
+ * @package Plugin\payjp4\Entity
+ *
+ * @ORM\Table(name="plg_payjp_subscription")
+ * @ORM\Entity(repositoryClass="Plugin\payjp4\Repository\SubscriptionRepository")
+ */
 class Subscription extends \Eccube\Entity\AbstractEntity
 {
     /**
-    * @ORM\Column(name="id", type="integer", options={"unsigned":true})
-    * @ORM\Id()
-    * @ORM\GeneratedValue(strategy="IDENTITY")
-    */
+     * @ORM\Column(name="id", type="integer", options={"unsigned":true})
+     * @ORM\Id()
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Eccube\Entity\Customer", inversedBy="subscriptions")
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $payjp_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Eccube\Entity\Customer", inversedBy="Subscriptions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $Customer;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Plugin\payjp4\Entity\Plan", inversedBy="subscriptions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity="Eccube\Entity\OrderItem", mappedBy="Subscription")
      */
-    private $Plan;
+    private $OrderItem;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCustomer(): ?Customer
+    /**
+     * @return string
+     */
+    public function getPayjpId(): string
+    {
+        return $this->payjp_id;
+    }
+
+    /**
+     * @param string $payjp_id
+     * @return $this
+     */
+    public function setPayjpId(string $payjp_id): self
+    {
+        $this->payjp_id = $payjp_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Customer
+     */
+    public function getCustomer(): Customer
     {
         return $this->Customer;
     }
 
-    public function setCustomer(?Customer $Customer): self
+    /**
+     * @param Customer $Customer
+     * @return $this
+     */
+    public function setCustomer(Customer $Customer): self
     {
         $this->Customer = $Customer;
 
         return $this;
     }
 
-    public function getPlan(): ?Plan
+    /**
+     * @return OrderItem|null
+     */
+    public function getOrderItem(): ?OrderItem
     {
-        return $this->Plan;
+        return $this->OrderItem;
     }
 
-    public function setPlan(?Plan $Plan): self
+    /**
+     * @param OrderItem $orderItem
+     * @return $this
+     */
+    public function setOrderItem(OrderItem $orderItem): self
     {
-        $this->Plan = $Plan;
+        $this->OrderItem = $orderItem;
 
         return $this;
     }
