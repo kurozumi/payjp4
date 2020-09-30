@@ -140,18 +140,25 @@ class ProductClassTypeExtension extends AbstractTypeExtension
 
                 Payjp::setApiKey($this->eccubeConfig['payjp_secret_key']);
 
+                // 定期購入以外の販売種別を登録したらプランを削除
                 if ($data->getSaleType()->getName() !== trans('plugin.payjp.admin.sale_type.name')) {
                     if ($Plan = $data->getPlan()) {
                         $data->setPlan(null);
                         $this->entityManager->remove($Plan);
 
+                        // PAY.JPからプランを削除
                         Plan::retrieve($Plan->getPlanId())->delete();
                     }
                     return;
                 }
 
-                if(!$form->get('interval')->getData()) {
+                if (!$form->get('interval')->getData()) {
                     $form->get('interval')->addError(new FormError(trans('plugin.payjp.admin.interval.error')));
+                    return;
+                }
+
+                if ($form->get('sale_limit')->getData() != 1) {
+                    $form->get('sale_limit')->addError(new FormError(trans('plugin.payjp.admin.sale_limit.error')));
                     return;
                 }
 

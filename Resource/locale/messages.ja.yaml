@@ -12,6 +12,7 @@ plugin.payjp.admin.payment.name: 'クレジットカード'
 plugin.payjp.admin.sale_type.name: '定期購入'
 plugin.payjp.admin.sale_type.error: '定期購入は登録できません。'
 plugin.payjp.admin.interval.error: '定期購入商品は課金周期を設定してください。'
+plugin.payjp.admin.sale_limit.error: '定期購入商品は販売制限数を1にしてください。'
 
 plugin.payjp.admin.product_class_type.interval.label: '課金周期'
 plugin.payjp.admin.product_class_type.billing_day.label: '課金日'
