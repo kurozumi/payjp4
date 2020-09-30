@@ -48,7 +48,7 @@ class Config
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255add)
+     * @ORM\Column(type="string", length=255)
      */
     private $webhook_token;
 
