@@ -40,6 +40,12 @@ class ConfigType extends AbstractType
                     new Length(['max' => 255]),
                 ],
             ])
+            ->add('webhook_token', TextType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['max' => 255]),
+                ],
+            ])
         ;
     }
 

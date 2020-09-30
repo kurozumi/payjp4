@@ -38,6 +38,14 @@
                                     {{ form_errors(form.secret_key) }}
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-3"><span>{{ 'plugin.payjp.admin.webhook_token.label'|trans }}</span><span
+                                        class="badge badge-primary ml-1">{{ 'admin.common.required'|trans }}</span></div>
+                                <div class="col mb-2">
+                                    {{ form_widget(form.webhook_token) }}
+                                    {{ form_errors(form.webhook_token) }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

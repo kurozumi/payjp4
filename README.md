@@ -12,6 +12,12 @@ EC-CUBE4で[PAY.JP](https://pay.jp/)でクレジットカード決済ができ�
 
 [PAY.JPとは？](https://pay.jp/)
 
+## システム要件
+
+| 分類 | ソフトウェア|Version|
+|---|-------|---|
+|Database|MySQL|5.7.8以降 <br> (InnoDBエンジン 必須) |
+
 ## プラグインのインストールと有効化
 
 ```

@@ -34,16 +34,23 @@ class Config
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $public_key;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $secret_key;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255add)
+     */
+    private $webhook_token;
 
     /**
      * @return int
@@ -87,6 +94,25 @@ class Config
     public function setSecretKey(string $secret_key): self
     {
         $this->secret_key = $secret_key;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getWebhookToken(): ?string
+    {
+        return $this->webhook_token;
+    }
+
+    /**
+     * @param string $webhook_token
+     * @return $this
+     */
+    public function setWebhookToken(string $webhook_token): self
+    {
+        $this->webhook_token = $webhook_token;
 
         return $this;
     }

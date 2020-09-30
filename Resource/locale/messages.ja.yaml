@@ -3,6 +3,7 @@ plugin.payjp.admin.config.sub_title: '設定'
 plugin.payjp.admin.setting.title: 'PAY.JP設定'
 plugin.payjp.admin.public_key.label: '公開鍵'
 plugin.payjp.admin.secret_key.label: '秘密鍵'
+plugin.payjp.admin.webhook_token.label: 'Webhookトークン'
 
 plugin.payjp.front.payment.title: 'クレジットカード'
 plugin.payjp.front.payment.submit.name: 'トークンを作成する'
