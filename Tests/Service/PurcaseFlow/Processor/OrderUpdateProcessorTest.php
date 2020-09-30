@@ -77,7 +77,6 @@ class OrderUpdateProcessorTest extends EccubeTestCase
     {
         $this->Order->setPayment($this->Payment);
         $this->processor->commit($this->Order, new PurchaseContext());
-        self::assertEquals(OrderStatus::NEW, $this->Order->getOrderStatus()->getId());
         self::assertEquals(PaymentStatus::ACTUAL_SALES, $this->Order->getPayJpPaymentStatus()->getId());
     }
 
