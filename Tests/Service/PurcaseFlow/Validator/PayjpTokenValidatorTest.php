@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\payjp4\Tests\Service\PurcaseFlow\Processor;
+namespace Plugin\payjp4\Tests\Service\PurcaseFlow\Validator;
 
 
 use Eccube\Entity\Order;
@@ -20,7 +20,7 @@ use Eccube\Tests\EccubeTestCase;
 use Plugin\payjp4\Entity\PaymentStatus;
 use Plugin\payjp4\Service\Method\CreditCard;
 use Plugin\payjp4\Service\Method\Subscription;
-use Plugin\payjp4\Service\PurchaseFlow\Processor\PayjpTokenValidator;
+use Plugin\payjp4\Service\PurchaseFlow\Validator\PayjpTokenValidator;
 
 class PayjpTokenValidatorTest extends EccubeTestCase
 {
