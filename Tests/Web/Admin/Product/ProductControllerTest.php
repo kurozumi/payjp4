@@ -29,7 +29,7 @@ class ProductControllerTest extends AbstractAdminWebTestCase
 
     public function testRoutingAdminProductProductNew()
     {
-        $this->client->request($this->generateUrl('admin_product_product_new'));
+        $this->client->request('GET', $this->generateUrl('admin_product_product_new'));
         self::assertTrue($this->client->getResponse()->isSuccessful());
     }
 }
