@@ -10,19 +10,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\payjp4\Entity;
+namespace Plugin\payjp4\Entity\Payjp;
 
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
- * Class Webhook
- * @package Plugin\payjp4\Entity
+ * Class Event
+ * @package Plugin\payjp4\Entity\Payjp
  *
- * @ORM\Table(name="plg_payjp_webhook")
- * @ORM\Entity(repositoryClass="Plugin\payjp4\Repository\WebhookRepository")
+ * @ORM\Table(name="plg_payjp_event")
+ * @ORM\Entity(repositoryClass="Plugin\payjp4\Repository\Payjp\EventRepository")
  */
-class Webhook
+class Event
 {
     /**
      * @var integer
@@ -36,7 +37,7 @@ class Webhook
     /**
      * @ORM\Column(type="string")
      */
-    private $event_id;
+    private $payjp_id;
 
     /**
      * @ORM\Column(type="json")
@@ -59,18 +60,18 @@ class Webhook
     /**
      * @return string
      */
-    public function getEventId(): string
+    public function getPayjpId(): string
     {
-        return $this->event_id;
+        return $this->payjp_id;
     }
 
     /**
-     * @param string $event_id
+     * @param string $payjp_id
      * @return $this
      */
-    public function setEventId(string $event_id): self
+    public function setPayjpId(string $payjp_id): self
     {
-        $this->event_id = $event_id;
+        $this->payjp_id = $payjp_id;
 
         return $this;
     }

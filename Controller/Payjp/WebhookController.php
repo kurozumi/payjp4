@@ -10,13 +10,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\payjp4\Controller;
+namespace Plugin\payjp4\Controller\Payjp;
 
 
 use Eccube\Controller\AbstractController;
-use Plugin\payjp4\Entity\Webhook;
+use Plugin\payjp4\Entity\Payjp\Event;
 use Plugin\payjp4\Repository\ConfigRepository;
-use Plugin\payjp4\Repository\WebhookRepository;
+use Plugin\payjp4\Repository\Payjp\EventRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -24,9 +24,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class WebhookController
- * @package Plugin\payjp4\Controller
- *
- * @Route("/payjp")
+ * @package Plugin\payjp4\Controller\Payjp
  */
 class WebhookController extends AbstractController
 {
@@ -36,13 +34,13 @@ class WebhookController extends AbstractController
     private $configRepository;
 
     /**
-     * @var WebhookRepository
+     * @var EventRepository
      */
     private $webhookRepository;
 
     public function __construct(
         ConfigRepository $configRepository,
-        WebhookRepository $webhookRepository
+        EventRepository $webhookRepository
     )
     {
         $this->configRepository = $configRepository;
@@ -72,7 +70,7 @@ class WebhookController extends AbstractController
             return new Response();
         }
 
-        $Webhook = new Webhook();
+        $Webhook = new Event();
         $Webhook->setEventId($data['id']);
         $Webhook->setType($data['type']);
         $Webhook->setData($request->getContent());

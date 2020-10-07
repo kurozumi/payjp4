@@ -25,7 +25,7 @@ use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Payjp\Customer;
 use Payjp\Payjp;
-use Plugin\payjp4\Entity\CreditCard;
+use Plugin\payjp4\Entity\Payjp\CreditCard;
 use Plugin\payjp4\Repository\PaymentStatusRepository;
 use Symfony\Component\Form\FormInterface;
 
@@ -142,7 +142,7 @@ class Subscription implements PaymentMethodInterface
             ]);
 
             if (!isset($subscription['error'])) {
-                $Subscription = new \Plugin\payjp4\Entity\Subscription();
+                $Subscription = new \Plugin\payjp4\Entity\Payjp\Subscription();
                 $Subscription->setPayjpId($subscription->id);
                 $Subscription->setCustomer($Customer);
                 $Subscription->setOrderItem($OrderItem);

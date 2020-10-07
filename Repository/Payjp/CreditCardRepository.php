@@ -10,24 +10,25 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\payjp4\Repository;
+namespace Plugin\payjp4\Repository\Payjp;
 
-use Plugin\payjp4\Entity\Plan;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Eccube\Repository\AbstractRepository;
+use Plugin\payjp4\Entity\Payjp\CreditCard;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * Class PlanRepository
- * @package Plugin\payjp4\Repository
+ * Class CreditCardRepository
+ * @package Plugin\payjp4\Repository\Payjp
  */
-class PlanRepository extends AbstractRepository
+class CreditCardRepository extends AbstractRepository
 {
     /**
-     * PlanRepository constructor.
+     * CreditCardRepository constructor.
+     *
      * @param RegistryInterface $registry
      */
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Plan::class);
+        parent::__construct($registry, CreditCard::class);
     }
 }

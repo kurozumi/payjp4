@@ -1,11 +1,11 @@
 <?php
 
-/*
- * This file is part of EC-CUBE
+/**
+ * This file is part of payjp4
  *
- * Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+ * Copyright(c) Akira Kurozumi <info@a-zumi.net>
  *
- * http://www.ec-cube.co.jp/
+ *  https://a-zumi.net
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,9 +15,9 @@ namespace Plugin\payjp4\Controller\Admin;
 
 use Eccube\Controller\AbstractController;
 use Payjp\Payjp;
-use Plugin\payjp4\Entity\Plan;
+use Plugin\payjp4\Entity\Payjp\Plan;
 use Plugin\payjp4\Form\Type\Admin\PlanType;
-use Plugin\payjp4\Repository\PlanRepository;
+use Plugin\payjp4\Repository\Payjp\PlanRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;

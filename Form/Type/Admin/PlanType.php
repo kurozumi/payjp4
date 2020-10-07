@@ -14,7 +14,7 @@ namespace Plugin\payjp4\Form\Type\Admin;
 
 use Eccube\Common\EccubeConfig;
 use Payjp\Payjp;
-use Plugin\payjp4\Entity\Plan;
+use Plugin\payjp4\Entity\Payjp\Plan;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;

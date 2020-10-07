@@ -147,6 +147,7 @@ class ProductClassTypeExtension extends AbstractTypeExtension
                         $this->entityManager->remove($Plan);
 
                         // PAY.JPからプランを削除
+                        // TODO: 一度でも課金されたらPAY.JPから削除できない。
                         Plan::retrieve($Plan->getPlanId())->delete();
                     }
                     return;
@@ -176,7 +177,7 @@ class ProductClassTypeExtension extends AbstractTypeExtension
                             'billing_day' => $form->get('billing_day')->getData()
                         ]);
 
-                        $Plan = new \Plugin\payjp4\Entity\Plan();
+                        $Plan = new \Plugin\payjp4\Entity\Payjp\Plan();
                         $Plan
                             ->setPlanId($p->id)
                             ->setName($p->name)

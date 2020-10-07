@@ -25,7 +25,7 @@ use Eccube\Annotation\EntityExtension;
 trait ProductClassTrait
 {
     /**
-     * @ORM\OneToOne(targetEntity="Plugin\payjp4\Entity\Plan", inversedBy="ProductClass")
+     * @ORM\OneToOne(targetEntity="Plugin\payjp4\Entity\Payjp\Plan", inversedBy="ProductClass")
      * @ORM\JoinColumn(name="payjp_plan_id", referencedColumnName="id")
      */
     private $Plan;

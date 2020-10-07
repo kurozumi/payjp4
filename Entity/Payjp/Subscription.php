@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\payjp4\Entity;
+namespace Plugin\payjp4\Entity\Payjp;
 
 use Doctrine\ORM\Mapping as ORM;
 use Eccube\Entity\Customer;
@@ -18,10 +18,10 @@ use Eccube\Entity\OrderItem;
 
 /**
  * Class Subscription
- * @package Plugin\payjp4\Entity
+ * @package Plugin\payjp4\Entity\Payjp
  *
  * @ORM\Table(name="plg_payjp_subscription")
- * @ORM\Entity(repositoryClass="Plugin\payjp4\Repository\SubscriptionRepository")
+ * @ORM\Entity(repositoryClass="Plugin\payjp4\Repository\Payjp\SubscriptionRepository")
  */
 class Subscription extends \Eccube\Entity\AbstractEntity
 {

@@ -10,17 +10,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\payjp4\Entity;
+namespace Plugin\payjp4\Entity\Payjp;
 
 use Doctrine\ORM\Mapping as ORM;
 use Eccube\Entity\Customer;
 
 /**
  * Class CreditCard
- * @package Plugin\payjp4\Entity
+ * @package Plugin\payjp4\Entity\Payjp
  *
  * @ORM\Table(name="plg_payjp_customer")
- * @ORM\Entity(repositoryClass="Plugin\payjp4\Repository\CreditCardRepository")
+ * @ORM\Entity(repositoryClass="Plugin\payjp4\Repository\Payjp\CreditCardRepository")
  */
 class CreditCard
 {

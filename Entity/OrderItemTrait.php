@@ -24,7 +24,7 @@ use Eccube\Annotation\EntityExtension;
 trait OrderItemTrait
 {
     /**
-     * @ORM\OneToOne(targetEntity="Plugin\payjp4\Entity\Subscription", inversedBy="OrderItem")
+     * @ORM\OneToOne(targetEntity="Plugin\payjp4\Entity\Payjp\Subscription", inversedBy="OrderItem")
      * @ORM\JoinColumn(name="payjp_subscription_id", referencedColumnName="id")
      */
     private $Subscription;

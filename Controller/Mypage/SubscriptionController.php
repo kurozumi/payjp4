@@ -17,14 +17,18 @@ use Eccube\Controller\AbstractController;
 use Eccube\Entity\Customer;
 use Payjp\Payjp;
 use Payjp\Subscription;
-use Plugin\payjp4\Entity\Plan;
+use Plugin\payjp4\Entity\Payjp\Plan;
 use Plugin\payjp4\Entity\SubscriptionStatus;
-use Plugin\payjp4\Repository\PlanRepository;
+use Plugin\payjp4\Repository\Payjp\PlanRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class SubscriptionController
+ * @package Plugin\payjp4\Controller\Mypage
+ */
 class SubscriptionController extends AbstractController
 {
     /**

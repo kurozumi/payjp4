@@ -10,24 +10,24 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\payjp4\Repository;
+namespace Plugin\payjp4\Repository\Payjp;
 
-use Eccube\Repository\AbstractRepository;
-use Plugin\payjp4\Entity\Webhook;
+use Plugin\payjp4\Entity\Payjp\Plan;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Eccube\Repository\AbstractRepository;
 
 /**
- * Class WebhookRepository
- * @package Plugin\payjp4\Repository
+ * Class PlanRepository
+ * @package Plugin\payjp4\Repository\Payjp
  */
-class WebhookRepository extends AbstractRepository
+class PlanRepository extends AbstractRepository
 {
     /**
-     * WebhookRepository constructor.
+     * PlanRepository constructor.
      * @param RegistryInterface $registry
      */
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Webhook::class);
+        parent::__construct($registry, Plan::class);
     }
 }

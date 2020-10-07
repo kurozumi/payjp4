@@ -59,13 +59,14 @@ class PluginManager extends AbstractPluginManager
         $entityManager = $container->get('doctrine.orm.entity_manager');
         $paymentRepository = $entityManager->getRepository(Payment::class);
 
-        $Payments = $paymentRepository->findBy(['method_class' => [CreditCard::class, Subscription::class]]);
-        if ($Payments) {
-            foreach ($Payments as $Payment) {
-                $entityManager->remove($Payment);
-            }
-            $entityManager->flush();
-        }
+        // TODO 外部キー制約で削除できない
+//        $Payments = $paymentRepository->findBy(['method_class' => [CreditCard::class, Subscription::class]]);
+//        if ($Payments) {
+//            foreach ($Payments as $Payment) {
+//                $entityManager->remove($Payment);
+//            }
+//            $entityManager->flush();
+//        }
 
         // TODO APIでPAY.JPのプランをすべて削除
     }

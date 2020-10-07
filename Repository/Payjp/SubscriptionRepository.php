@@ -10,15 +10,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\payjp4\Repository;
+namespace Plugin\payjp4\Repository\Payjp;
 
-use Plugin\payjp4\Entity\Subscription;
+use Plugin\payjp4\Entity\Payjp\Subscription;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Eccube\Repository\AbstractRepository;
 
 /**
  * Class SubscriptionRepository
- * @package Plugin\payjp4\Repository
+ * @package Plugin\payjp4\Repository\Payjp
  */
 class SubscriptionRepository extends AbstractRepository
 {

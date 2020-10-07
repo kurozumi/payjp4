@@ -10,17 +10,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\payjp4\Entity;
+namespace Plugin\payjp4\Entity\Payjp;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Eccube\Entity\ProductClass;
 
 /**
+ * Class Plan
+ * @package Plugin\payjp4\Entity\Payjp
+ *
  * @ORM\Table(name="plg_payjp_plan")
- * @ORM\Entity(repositoryClass="Plugin\payjp4\Repository\PlanRepository")
-*/
+ * @ORM\Entity(repositoryClass="Plugin\payjp4\Repository\Payjp\PlanRepository")
+ */
 class Plan extends \Eccube\Entity\AbstractEntity
 {
     /**

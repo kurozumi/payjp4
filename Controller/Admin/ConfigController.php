@@ -23,6 +23,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class ConfigController
+ * @package Plugin\payjp4\Controller\Admin
+ */
 class ConfigController extends AbstractController
 {
     /**
