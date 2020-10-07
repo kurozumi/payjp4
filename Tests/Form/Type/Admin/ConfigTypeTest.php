@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\payjp4\Tests\Form\Admin;
+namespace Plugin\payjp4\Tests\Form\Type\Admin;
 
 
 use Eccube\Tests\Form\Type\AbstractTypeTestCase;

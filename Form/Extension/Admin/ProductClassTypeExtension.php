@@ -22,6 +22,7 @@ use Payjp\Payjp;
 use Payjp\Plan;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
@@ -76,11 +77,12 @@ class ProductClassTypeExtension extends AbstractTypeExtension
             ->add('billing_day', ChoiceType::class, [
                 'label' => 'plugin.payjp.admin.product_class_type.billing_day.label',
                 'choices' => array_combine(range(1, 31), range(1, 31)),
+                'expanded' => false,
                 'mapped' => false,
                 'placeholder' => 'common.select__unspecified',
                 'eccube_form_options' => [
                     'auto_render' => true
-                ]
+                ],
             ]);
 
         $builder
@@ -90,6 +92,10 @@ class ProductClassTypeExtension extends AbstractTypeExtension
                 $data = $event->getData();
 
                 if ($data instanceof ProductClass) {
+                    if(null === $data->getSaleType()) {
+                        return;
+                    }
+
                     if ($data->getSaleType()->getName() !== trans('plugin.payjp.admin.sale_type.name')) {
                         return;
                     }
@@ -97,6 +103,11 @@ class ProductClassTypeExtension extends AbstractTypeExtension
                     if ($Plan = $data->getPlan()) {
                         $form
                             ->add('price02', PriceType::class, [
+                                'attr' => [
+                                    'readonly' => 'readonly'
+                                ]
+                            ])
+                            ->add('sale_limit', NumberType::class, [
                                 'attr' => [
                                     'readonly' => 'readonly'
                                 ]
@@ -158,7 +169,7 @@ class ProductClassTypeExtension extends AbstractTypeExtension
                     return;
                 }
 
-                if ($form->get('sale_limit')->getData() != 1) {
+                if ($form->get('sale_limit')->getData() !== 1) {
                     $form->get('sale_limit')->addError(new FormError(trans('plugin.payjp.admin.sale_limit.error')));
                     return;
                 }
