@@ -169,7 +169,7 @@ class ProductClassTypeExtension extends AbstractTypeExtension
                     return;
                 }
 
-                if ($form->get('sale_limit')->getData() !== 1) {
+                if ($form->get('sale_limit')->getData() != 1) {
                     $form->get('sale_limit')->addError(new FormError(trans('plugin.payjp.admin.sale_limit.error')));
                     return;
                 }
