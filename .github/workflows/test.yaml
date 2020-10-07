@@ -78,14 +78,11 @@ jobs:
         env:
           DATABASE_URL: mysql://root:root@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/eccube_db
           DATABASE_SERVER_VERSION: ${{ matrix.mysql-versions }}
-          PAYPAY_API_KEY: m_D7hL2BqibI_ZUV8
-          PAYPAY_API_SECRET: NuDACt3mdTDUGd0T5OLD3tHGwMDBFXaf5DYiqQ1T
-          PAYPAY_MERCHANT_ID: 266902453542281216
-          PAYPAY_PROD: 0
 
       - name: Update Plugin
         run: |
           cd ec-cube
+          bin/console cache:clear --no-warmup
           bin/console eccube:plugin:update ${{ github.event.repository.name }}
         env:
           DATABASE_URL: mysql://root:root@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/eccube_db
@@ -180,6 +177,7 @@ jobs:
       - name: Update Plugin
         run: |
           cd ec-cube
+          bin/console cache:clear --no-warmup
           bin/console eccube:plugin:update ${{ github.event.repository.name }}
         env:
           DATABASE_URL: postgres://postgres:password@127.0.0.1:${{ job.services.postgres.ports['5432'] }}/eccube_db

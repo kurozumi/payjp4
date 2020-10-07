@@ -36,15 +36,15 @@ class WebhookController extends AbstractController
     /**
      * @var EventRepository
      */
-    private $webhookRepository;
+    private $eventRepository;
 
     public function __construct(
         ConfigRepository $configRepository,
-        EventRepository $webhookRepository
+        EventRepository $eventRepository
     )
     {
         $this->configRepository = $configRepository;
-        $this->webhookRepository = $webhookRepository;
+        $this->eventRepository = $eventRepository;
     }
 
     /**
@@ -62,19 +62,19 @@ class WebhookController extends AbstractController
 
         $data = json_decode($request->getContent(), true);
 
-        $Webhook = $this->webhookRepository->findOneBy([
-            'event_id' => $data['id']
+        $Event = $this->eventRepository->findOneBy([
+            'payjp_id' => $data['id']
         ]);
 
-        if($Webhook) {
+        if($Event) {
             return new Response();
         }
 
-        $Webhook = new Event();
-        $Webhook->setEventId($data['id']);
-        $Webhook->setType($data['type']);
-        $Webhook->setData($request->getContent());
-        $this->entityManager->persist($Webhook);
+        $Event = new Event();
+        $Event->setEventId($data['id']);
+        $Event->setType($data['type']);
+        $Event->setData($request->getContent());
+        $this->entityManager->persist($Event);
         $this->entityManager->flush();
 
         return new Response();
