@@ -13,9 +13,9 @@
 namespace Plugin\payjp4\Tests\Web\Admin\Product;
 
 
-use Plugin\CustomerClassPrice4\Tests\Web\AbstractWebTestCase;
+use Eccube\Tests\Web\Admin\AbstractAdminWebTestCase;
 
-class ProductControllerTest extends AbstractWebTestCase
+class ProductControllerTest extends AbstractAdminWebTestCase
 {
     public function setUp()
     {
