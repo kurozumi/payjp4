@@ -14,6 +14,7 @@ namespace Plugin\payjp4\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Eccube\Annotation\EntityExtension;
+use Plugin\payjp4\Entity\Payjp\Subscription;
 
 /**
  * Trait OrderItemTrait
