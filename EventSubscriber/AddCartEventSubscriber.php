@@ -18,8 +18,10 @@ use Eccube\Entity\Product;
 use Eccube\Entity\ProductClass;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
+use Eccube\Exception\CartException;
 use Eccube\Service\CartService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AddCartEventSubscriber implements EventSubscriberInterface
 {
@@ -47,7 +49,12 @@ class AddCartEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onFrontProductCartAddInitialize(EventArgs $args)
+    /**
+     * 定期購入商品をカートに追加したときは追加前にカートクリア
+     *
+     * @param EventArgs $args
+     */
+    public function onFrontProductCartAddInitialize(EventArgs $args): void
     {
         /** @var Product $Product */
         $Product = $args->getArgument('Product');
@@ -61,14 +68,25 @@ class AddCartEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onFrontMypageMypageOrderInitialize(EventArgs $args)
+    /**
+     * 定期購入商品は再注文できない
+     *
+     * @param EventArgs $args
+     * @throws CartException
+     */
+    public function onFrontMypageMypageOrderInitialize(EventArgs $args): void
     {
         /** @var Order $Order */
         $Order = $args->getArgument('Order');
 
+        if(!$Order) {
+            return;
+        }
+
         foreach($Order->getSaleTypes() as $saleType) {
-            if($saleType === trans('plugin.payjp.admin.sale_type.name')) {
-                $this->cartService->clear();
+            if($saleType->getName() === trans('plugin.payjp.admin.sale_type.name')) {
+                log_info('定期購入商品は再注文できません');
+                throw new NotFoundHttpException();
             }
         }
     }
